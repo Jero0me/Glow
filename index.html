@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glow Makeup Studio • Studio & On-Location Makeup Artist</title>
-  <meta name="description" content="Glow Makeup Studio offers studio and on-location bridal, casual, prom, bridesmaid, editorial, photoshoot and special event makeup." />
+  <meta name="description" content="Glow Makeup Studio offers studio and on-location bridal, casual, prom, bridesmaid, editorial and extreme makeup looks." />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -70,12 +69,7 @@
       top: 0;
       z-index: 40;
       backdrop-filter: blur(20px);
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 245, 249, 0.96),
-        rgba(255, 245, 249, 0.8),
-        transparent
-      );
+      background: linear-gradient(to bottom, rgba(255, 245, 249, 0.96), rgba(255, 245, 249, 0.8), transparent);
       border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     }
 
@@ -122,6 +116,7 @@
       letter-spacing: .1em;
       text-transform: uppercase;
     }
+
     .nav-links a:hover { color: var(--text-main); }
 
     .btn {
@@ -148,6 +143,7 @@
       box-shadow: var(--shadow-subtle);
       border-color: rgba(255, 255, 255, 0.9);
     }
+
     .btn-primary:hover {
       background: linear-gradient(135deg, var(--accent-gold-deep), var(--accent-berry));
     }
@@ -341,7 +337,6 @@
       font-size: 0.8rem;
     }
 
-    /* Animated butterfly in main hero space */
     .butterfly {
       position: absolute;
       right: 6%;
@@ -362,14 +357,14 @@
     }
 
     @keyframes butterfly-float {
-      0%   { transform: translate(0, 0) rotate(-6deg); }
-      50%  { transform: translate(-10px, -22px) rotate(4deg); }
+      0% { transform: translate(0, 0) rotate(-6deg); }
+      50% { transform: translate(-10px, -22px) rotate(4deg); }
       100% { transform: translate(-4px, 6px) rotate(-3deg); }
     }
 
     @keyframes butterfly-flap {
       0%,100% { transform: scale(1) rotate(0deg); }
-      50%     { transform: scale(1.08) rotate(2deg); }
+      50% { transform: scale(1.08) rotate(2deg); }
     }
 
     .section-heading {
@@ -411,12 +406,6 @@
       align-items: start;
     }
 
-    .services--with-gallery {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      align-items: start;
-      gap: 34px;
-    }
-
     .service-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -429,6 +418,7 @@
       background: var(--surface-main);
       border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-subtle);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
     }
 
     .service-label {
@@ -451,6 +441,13 @@
       color: var(--text-muted);
     }
 
+    .service-card--linked.is-active {
+      border-color: rgba(241,196,111,0.9);
+      box-shadow: 0 18px 40px rgba(171, 88, 94, 0.25);
+      background: rgba(255,255,255,0.98);
+      transform: translateY(-4px);
+    }
+
     .services-note {
       padding: 18px 20px;
       border-radius: 26px;
@@ -468,12 +465,12 @@
       font-size: 0.82rem;
     }
 
-    /* Gallery on the right */
     .services-gallery {
       display: flex;
       flex-direction: column;
       gap: 14px;
       align-self: stretch;
+      min-height: 100%;
     }
 
     .services-gallery__frame {
@@ -486,7 +483,8 @@
         linear-gradient(145deg, #fce8f0, #f6c7d6);
       border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
-      min-height: 280px;
+      min-height: 100%;
+      flex: 1;
     }
 
     .services-gallery__image {
@@ -545,23 +543,6 @@
       box-shadow: 0 0 0 4px rgba(241,196,111,0.35);
     }
 
-    .services-gallery__hint {
-      font-size: var(--text-sm);
-      color: var(--text-soft);
-      margin: 0;
-    }
-
-    .service-card--linked {
-      transition: box-shadow 220ms var(--transition), transform 220ms var(--transition), border-color 220ms var(--transition), background 220ms var(--transition);
-    }
-
-    .service-card--linked.is-active {
-      border-color: rgba(241,196,111,0.9);
-      box-shadow: 0 18px 40px rgba(171, 88, 94, 0.25);
-      background: rgba(255,255,255,0.98);
-      transform: translateY(-4px);
-    }
-
     .availability-layout {
       display: grid;
       grid-template-columns: minmax(0,1fr);
@@ -569,7 +550,7 @@
       align-items: start;
     }
 
-    .availability-panel, form {
+    form {
       border-radius: var(--radius-lg);
       background: var(--surface-main);
       border: 1px solid var(--border-soft);
@@ -582,6 +563,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
     }
+
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field.full { grid-column: 1 / -1; }
 
@@ -638,48 +620,34 @@
       transform: translateY(24px);
       transition: opacity 800ms ease, transform 800ms ease;
     }
+
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Mobile optimisations */
     @media (max-width: 980px) {
       .hero,
-      .services--with-gallery {
+      .services {
         grid-template-columns: 1fr;
       }
-      .hero {
-        padding-top: 2.4rem;
-      }
-      .butterfly {
-        right: 8%;
-        top: 4%;
-      }
+      .hero { padding-top: 2.4rem; }
+      .butterfly { right: 8%; top: 4%; }
     }
 
     @media (max-width: 900px) {
-      .services--with-gallery {
-        grid-template-columns: 1fr;
-      }
-      .services-gallery {
-        order: -1;
-      }
+      .service-list { grid-template-columns: 1fr; }
+      .services-gallery { order: -1; }
     }
 
     @media (max-width: 720px) {
       .nav { align-items: flex-start; }
       .nav-links { gap: 10px; justify-content: flex-end; }
-      .service-list { grid-template-columns: 1fr; }
       .form-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .brand span { display: none; }
       .hero { gap: 32px; }
-      .butterfly {
-        top: 6%;
-        right: 4%;
-        width: 90px;
-      }
+      .butterfly { top: 6%; right: 4%; width: 90px; }
     }
 
     @media (max-width: 520px) {
@@ -709,7 +677,7 @@
 
       <nav class="nav-links" aria-label="Primary">
         <a href="#services">Services</a>
-        <a href="#availability">Availability</a>
+        <a href="#availability">Inquiry</a>
         <a href="#contact">Contact</a>
         <a class="btn btn-primary" href="#availability">Book inquiry</a>
       </nav>
@@ -717,10 +685,8 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section id="home">
       <div class="container hero">
-        <!-- Floating butterfly in main hero area -->
         <div class="butterfly" aria-hidden="true">
           <svg viewBox="0 0 60 60">
             <defs>
@@ -738,13 +704,10 @@
         </div>
 
         <div class="hero-intro reveal">
-          <div class="tagline">
-            <span class="tagline-dot"></span>
-            Studio & on-location
-          </div>
+          <div class="tagline"><span class="tagline-dot"></span>Studio & on-location</div>
           <h1>Soft, luminous studio and on-location makeup.</h1>
           <p class="hero-subline">
-            Bridal, casual, prom, bridesmaid, editorial, photoshoot and special event looks —
+            Bridal, casual, prom, bridesmaid, editorial and extreme makeup looks —
             created in our studio or in your home, hotel or venue.
           </p>
           <p class="hero-note">
@@ -768,10 +731,7 @@
           <div class="hero-card-inner">
             <div class="hero-logo-frame">
               <img src="Design_Pink-removebg-preview.jpg" alt="Glow Makeup Studio logo" loading="eager" />
-              <div class="hero-badge">
-                <span></span>
-                Studio & travel
-              </div>
+              <div class="hero-badge"><span></span>Studio & travel</div>
             </div>
             <div class="hero-floating">
               <strong>Your glow, your location</strong>
@@ -790,16 +750,15 @@
       </div>
     </section>
 
-    <!-- SERVICES + GALLERY -->
     <section id="services">
-      <div class="container services services--with-gallery">
+      <div class="container services">
         <div>
           <div class="section-heading reveal">
             <div class="section-eyebrow">Services</div>
             <h2>Glow looks, for every kind of day.</h2>
             <p>
-              Whether it’s a wedding morning, content shoot or a simple night out,
-              Glow Makeup Studio creates soft, flattering looks that feel like you –
+              Whether it’s a wedding morning, content shoot or a night out,
+              Glow Makeup Studio creates soft, flattering looks that feel like you —
               just a little more polished and luminous.
             </p>
           </div>
@@ -809,8 +768,8 @@
               <div class="service-label">Bridal</div>
               <h3>Bridal glow</h3>
               <p>
-                Signature bridal makeup with trial options, touch-ups and a focus on
-                long‑wear, tear‑resistant radiance for your whole day.
+                Soft, long-wear bridal makeup designed to stay fresh through photos,
+                vows and celebrations, with optional trials and touch-up planning.
               </p>
             </article>
 
@@ -818,17 +777,17 @@
               <div class="service-label">Bridesmaid</div>
               <h3>Bridesmaid glam</h3>
               <p>
-                Harmonised looks for your bridal party so everyone feels confident
-                and photographs beautifully beside you.
+                Coordinated makeup for your bridal party with balanced tones,
+                flattering definition and a polished finish in photos.
               </p>
             </article>
 
-            <article class="service-card reveal service-card--linked" data-style="prom-casual">
-              <div class="service-label">Prom & casual</div>
-              <h3>Prom & casual</h3>
+            <article class="service-card reveal service-card--linked" data-style="prom">
+              <div class="service-label">Prom</div>
+              <h3>Prom glam</h3>
               <p>
-                Soft glam, glass‑skin or something bolder – prom, graduations and
-                everyday events with makeup that still feels like your face.
+                Elegant event makeup with a soft-glam finish, made to last through
+                dancing, photos and the full night.
               </p>
             </article>
 
@@ -836,26 +795,26 @@
               <div class="service-label">Editorial</div>
               <h3>Editorial & shoots</h3>
               <p>
-                Clean beauty or creative concepts for campaigns, content days and
-                professional photoshoots.
+                Fashion-forward or clean-beauty looks for campaigns, creative shoots
+                and polished content days.
               </p>
             </article>
 
-            <article class="service-card reveal service-card--linked" data-style="special-event">
-              <div class="service-label">Special events</div>
-              <h3>Special event</h3>
+            <article class="service-card reveal service-card--linked" data-style="extreme">
+              <div class="service-label">Extreme makeup</div>
+              <h3>Extreme makeup</h3>
               <p>
-                Custom looks for birthdays, engagements, baby showers and any
-                occasion where you want that extra glow.
+                Bold, high-impact looks with stronger color, sharper detail and a more
+                dramatic finish for statement moments.
               </p>
             </article>
 
-            <article class="service-card reveal service-card--linked" data-style="studio-travel">
-              <div class="service-label">Studio & travel</div>
-              <h3>Studio or on‑location</h3>
+            <article class="service-card reveal service-card--linked" data-style="casual">
+              <div class="service-label">Casual</div>
+              <h3>Casual glam</h3>
               <p>
-                Visit our studio or have us travel to your home, hotel or venue for
-                a calm, organised getting‑ready experience.
+                Light, natural makeup for everyday plans, dinners or events when you
+                want to look refreshed without feeling overdone.
               </p>
             </article>
           </div>
@@ -863,12 +822,12 @@
 
         <aside class="services-gallery reveal" aria-label="Example looks gallery">
           <div class="services-gallery__frame">
-            <img src="style-bridal.jpg" alt="Example bridal glow makeup look" class="services-gallery__image is-active" data-style="bridal" />
-            <img src="style-bridesmaid.jpg" alt="Example bridesmaid glam makeup look" class="services-gallery__image" data-style="bridesmaid" />
-            <img src="style-prom-casual.jpg" alt="Example prom and casual makeup look" class="services-gallery__image" data-style="prom-casual" />
-            <img src="style-editorial.jpg" alt="Example editorial and photoshoot makeup look" class="services-gallery__image" data-style="editorial" />
-            <img src="style-special-event.jpg" alt="Example special event makeup look" class="services-gallery__image" data-style="special-event" />
-            <img src="style-studio-travel.jpg" alt="Example studio or on-location makeup look" class="services-gallery__image" data-style="studio-travel" />
+            <img src="style-bridal.jpg" alt="Bridal glow makeup look" class="services-gallery__image is-active" data-style="bridal" />
+            <img src="style-bridesmaid.jpg" alt="Bridesmaid glam makeup look" class="services-gallery__image" data-style="bridesmaid" />
+            <img src="style-prom.jpg" alt="Prom glam makeup look" class="services-gallery__image" data-style="prom" />
+            <img src="style-editorial.jpg" alt="Editorial and shoots makeup look" class="services-gallery__image" data-style="editorial" />
+            <img src="style-extreme.jpg" alt="Extreme makeup look" class="services-gallery__image" data-style="extreme" />
+            <img src="style-casual.jpg" alt="Casual glam makeup look" class="services-gallery__image" data-style="casual" />
           </div>
 
           <div class="services-gallery__controls" aria-label="Switch example look">
@@ -876,17 +835,13 @@
             <div class="services-gallery__dots">
               <button type="button" class="services-gallery__dot is-active" data-style="bridal" aria-label="Bridal look"></button>
               <button type="button" class="services-gallery__dot" data-style="bridesmaid" aria-label="Bridesmaid look"></button>
-              <button type="button" class="services-gallery__dot" data-style="prom-casual" aria-label="Prom & casual look"></button>
-              <button type="button" class="services-gallery__dot" data-style="editorial" aria-label="Editorial & shoots look"></button>
-              <button type="button" class="services-gallery__dot" data-style="special-event" aria-label="Special event look"></button>
-              <button type="button" class="services-gallery__dot" data-style="studio-travel" aria-label="Studio or on-location look"></button>
+              <button type="button" class="services-gallery__dot" data-style="prom" aria-label="Prom look"></button>
+              <button type="button" class="services-gallery__dot" data-style="editorial" aria-label="Editorial look"></button>
+              <button type="button" class="services-gallery__dot" data-style="extreme" aria-label="Extreme makeup look"></button>
+              <button type="button" class="services-gallery__dot" data-style="casual" aria-label="Casual glam look"></button>
             </div>
             <button type="button" class="services-gallery__arrow" data-gallery-next aria-label="Next look">›</button>
           </div>
-
-          <p class="services-gallery__hint">
-            Tap through the looks — the matching service card will highlight on the left.
-          </p>
         </aside>
       </div>
 
@@ -894,21 +849,15 @@
         <aside class="services-note reveal">
           <strong>How we work</strong>
           <p style="margin-top: 8px;">
-            Every booking starts with a simple enquiry – you choose your date,
-            service and whether you’d like a studio appointment or for us to come
-            to you.
+            Every booking starts with a simple enquiry — you choose your date, service and whether you’d like a studio appointment or on-location visit.
           </p>
           <p style="margin-top: 8px;">
-            In your message, include your event type, preferred ready‑by time,
-            number of faces and location if it’s on‑location. We’ll reply with
-            availability, timing and a clear plan so you know exactly how your
-            getting‑ready time will flow.
+            In your message, include your event type, preferred ready-by time, number of faces and location. We’ll reply with availability and a clear plan for the day.
           </p>
         </aside>
       </div>
     </section>
 
-    <!-- CONTACT TEXT -->
     <section id="contact">
       <div class="container">
         <div class="section-heading reveal" style="text-align:center;">
@@ -923,7 +872,6 @@
       </div>
     </section>
 
-    <!-- INQUIRY FORM -->
     <section id="availability">
       <div class="container availability-layout">
         <form class="reveal" id="inquiry-form">
@@ -932,8 +880,7 @@
             Tell us about your glow.
           </h2>
           <p style="margin-top: 0; margin-bottom: 18px; color: var(--text-muted); max-width: 36rem;">
-            Select any future date, choose your service and let us know if you’d like a studio appointment
-            or on-location visit. We’ll review your details and reply with availability and next steps.
+            Select any future date, choose your service and let us know the style you’d like. We’ll review your details and reply with availability and next steps.
           </p>
 
           <div class="form-grid">
@@ -958,8 +905,7 @@
                 <option>Prom</option>
                 <option>Casual</option>
                 <option>Editorial</option>
-                <option>Photoshoot</option>
-                <option>Special event</option>
+                <option>Extreme makeup</option>
               </select>
             </div>
             <div class="field">
@@ -992,7 +938,6 @@
             <p id="form-message" aria-live="polite"></p>
             <p>
               Demo only: this button shows what will be sent once the form is connected to a Google Sheet or booking workflow.
-              In production, each inquiry creates a row with your details and preferred studio or travel location.
             </p>
             <button class="btn btn-primary" type="submit">Submit inquiry</button>
           </div>
@@ -1003,12 +948,11 @@
 
   <footer>
     <div class="container">
-      Glow Makeup Studio • Studio and on-location makeup for bridal, casual, prom, bridesmaid, editorial, photoshoot and special events.
+      Glow Makeup Studio • Studio and on-location makeup for bridal, casual, prom, bridesmaid, editorial and extreme makeup.
     </div>
   </footer>
 
   <script>
-    // Date picker: only allow today + future dates, any month/year
     const calendarInput = document.getElementById("calendar-date");
     const form = document.getElementById("inquiry-form");
     const message = document.getElementById("form-message");
@@ -1030,13 +974,11 @@
         }
         message.style.color = "";
         message.textContent =
-          `Demo only — ready to send to Google Sheets: ` +
-          `${payload.name} requested ${payload.service} on ${payload["calendar-date"]} as a ${payload.sessionType} at ${payload.location || "no location specified"}.`;
+          `Demo only — ready to send to Google Sheets: ${payload.name} requested ${payload.service} on ${payload["calendar-date"]} as a ${payload.sessionType} at ${payload.location || "no location specified"}.`;
         console.log(payload);
       });
     }
 
-    // Services gallery: sync images with service cards
     const galleryImages = Array.from(document.querySelectorAll(".services-gallery__image"));
     const galleryDots = Array.from(document.querySelectorAll(".services-gallery__dot"));
     const serviceCards = Array.from(document.querySelectorAll(".service-card--linked"));
@@ -1044,19 +986,13 @@
     const nextBtn = document.querySelector("[data-gallery-next]");
 
     if (galleryImages.length && galleryDots.length && serviceCards.length) {
-      const order = ["bridal", "bridesmaid", "prom-casual", "editorial", "special-event", "studio-travel"];
+      const order = ["bridal", "bridesmaid", "prom", "editorial", "extreme", "casual"];
       let currentIndex = 0;
 
       const setActiveStyle = (styleKey) => {
-        galleryImages.forEach(img => {
-          img.classList.toggle("is-active", img.dataset.style === styleKey);
-        });
-        galleryDots.forEach(dot => {
-          dot.classList.toggle("is-active", dot.dataset.style === styleKey);
-        });
-        serviceCards.forEach(card => {
-          card.classList.toggle("is-active", card.dataset.style === styleKey);
-        });
+        galleryImages.forEach(img => img.classList.toggle("is-active", img.dataset.style === styleKey));
+        galleryDots.forEach(dot => dot.classList.toggle("is-active", dot.dataset.style === styleKey));
+        serviceCards.forEach(card => card.classList.toggle("is-active", card.dataset.style === styleKey));
       };
 
       const goToIndex = (index) => {
@@ -1064,13 +1000,9 @@
         setActiveStyle(order[currentIndex]);
       };
 
-      galleryDots.forEach((dot, idx) => {
-        dot.addEventListener("click", () => goToIndex(idx));
-      });
-
+      galleryDots.forEach((dot, idx) => dot.addEventListener("click", () => goToIndex(idx)));
       prevBtn?.addEventListener("click", () => goToIndex(currentIndex - 1));
       nextBtn?.addEventListener("click", () => goToIndex(currentIndex + 1));
-
       serviceCards.forEach((card) => {
         card.addEventListener("click", () => {
           const idx = order.indexOf(card.dataset.style);
@@ -1081,7 +1013,6 @@
       setActiveStyle(order[0]);
     }
 
-    // Scroll reveal
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
