@@ -456,6 +456,7 @@
       box-shadow: var(--shadow-subtle);
       font-size: var(--text-sm);
       color: var(--text-main);
+      margin-top: 18px;
     }
 
     .services-note strong {
@@ -493,6 +494,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center top;
       opacity: 0;
       transform: scale(1.02);
       transition: opacity 420ms var(--transition), transform 420ms var(--transition);
@@ -767,57 +769,49 @@
             <article class="service-card reveal service-card--linked" data-style="bridal">
               <div class="service-label">Bridal</div>
               <h3>Bridal glow</h3>
-              <p>
-                Soft, long-wear bridal makeup designed to stay fresh through photos,
-                vows and celebrations, with optional trials and touch-up planning.
-              </p>
+              <p>Soft, long-wear bridal makeup designed to stay fresh through photos, vows and celebrations, with optional trials and touch-up planning.</p>
             </article>
 
             <article class="service-card reveal service-card--linked" data-style="bridesmaid">
               <div class="service-label">Bridesmaid</div>
               <h3>Bridesmaid glam</h3>
-              <p>
-                Coordinated makeup for your bridal party with balanced tones,
-                flattering definition and a polished finish in photos.
-              </p>
+              <p>Coordinated makeup for your bridal party with balanced tones, flattering definition and a polished finish in photos.</p>
             </article>
 
             <article class="service-card reveal service-card--linked" data-style="prom">
               <div class="service-label">Prom</div>
               <h3>Prom glam</h3>
-              <p>
-                Elegant event makeup with a soft-glam finish, made to last through
-                dancing, photos and the full night.
-              </p>
+              <p>Elegant event makeup with a soft-glam finish, made to last through dancing, photos and the full night.</p>
             </article>
 
             <article class="service-card reveal service-card--linked" data-style="editorial">
               <div class="service-label">Editorial</div>
               <h3>Editorial & shoots</h3>
-              <p>
-                Fashion-forward or clean-beauty looks for campaigns, creative shoots
-                and polished content days.
-              </p>
+              <p>Fashion-forward or clean-beauty looks for campaigns, creative shoots and polished content days.</p>
             </article>
 
             <article class="service-card reveal service-card--linked" data-style="extreme">
               <div class="service-label">Extreme makeup</div>
               <h3>Extreme makeup</h3>
-              <p>
-                Bold, high-impact looks with stronger color, sharper detail and a more
-                dramatic finish for statement moments.
-              </p>
+              <p>Bold, high-impact looks with stronger color, sharper detail and a more dramatic finish for statement moments.</p>
             </article>
 
             <article class="service-card reveal service-card--linked" data-style="casual">
               <div class="service-label">Casual</div>
               <h3>Casual glam</h3>
-              <p>
-                Light, natural makeup for everyday plans, dinners or events when you
-                want to look refreshed without feeling overdone.
-              </p>
+              <p>Light, natural makeup for everyday plans, dinners or events when you want to look refreshed without feeling overdone.</p>
             </article>
           </div>
+
+          <aside class="services-note reveal">
+            <strong>How we work</strong>
+            <p style="margin-top: 8px;">
+              Every booking starts with a simple enquiry — you choose your date, service and whether you’d like a studio appointment or on-location visit.
+            </p>
+            <p style="margin-top: 8px;">
+              In your message, include your event type, preferred ready-by time, number of faces and location. We’ll reply with availability and a clear plan for the day.
+            </p>
+          </aside>
         </div>
 
         <aside class="services-gallery reveal" aria-label="Example looks gallery">
@@ -842,18 +836,6 @@
             </div>
             <button type="button" class="services-gallery__arrow" data-gallery-next aria-label="Next look">›</button>
           </div>
-        </aside>
-      </div>
-
-      <div class="container">
-        <aside class="services-note reveal">
-          <strong>How we work</strong>
-          <p style="margin-top: 8px;">
-            Every booking starts with a simple enquiry — you choose your date, service and whether you’d like a studio appointment or on-location visit.
-          </p>
-          <p style="margin-top: 8px;">
-            In your message, include your event type, preferred ready-by time, number of faces and location. We’ll reply with availability and a clear plan for the day.
-          </p>
         </aside>
       </div>
     </section>
@@ -936,9 +918,7 @@
 
           <div class="form-footer">
             <p id="form-message" aria-live="polite"></p>
-            <p>
-              Demo only: this button shows what will be sent once the form is connected to a Google Sheet or booking workflow.
-            </p>
+            <p>Demo only: this button shows what will be sent once the form is connected to a Google Sheet or booking workflow.</p>
             <button class="btn btn-primary" type="submit">Submit inquiry</button>
           </div>
         </form>
@@ -988,6 +968,8 @@
     if (galleryImages.length && galleryDots.length && serviceCards.length) {
       const order = ["bridal", "bridesmaid", "prom", "editorial", "extreme", "casual"];
       let currentIndex = 0;
+      let wheelLock = false;
+      let touchStartY = 0;
 
       const setActiveStyle = (styleKey) => {
         galleryImages.forEach(img => img.classList.toggle("is-active", img.dataset.style === styleKey));
@@ -1000,15 +982,45 @@
         setActiveStyle(order[currentIndex]);
       };
 
+      const next = () => goToIndex(currentIndex + 1);
+      const prev = () => goToIndex(currentIndex - 1);
+
       galleryDots.forEach((dot, idx) => dot.addEventListener("click", () => goToIndex(idx)));
-      prevBtn?.addEventListener("click", () => goToIndex(currentIndex - 1));
-      nextBtn?.addEventListener("click", () => goToIndex(currentIndex + 1));
+      prevBtn?.addEventListener("click", prev);
+      nextBtn?.addEventListener("click", next);
+
       serviceCards.forEach((card) => {
         card.addEventListener("click", () => {
           const idx = order.indexOf(card.dataset.style);
           if (idx !== -1) goToIndex(idx);
         });
       });
+
+      const frame = document.querySelector(".services-gallery__frame");
+      if (frame) {
+        frame.addEventListener("wheel", (e) => {
+          if (wheelLock) return;
+          if (Math.abs(e.deltaY) < 10) return;
+          wheelLock = true;
+          e.preventDefault();
+          if (e.deltaY > 0) next();
+          else prev();
+          setTimeout(() => { wheelLock = false; }, 220);
+        }, { passive: false });
+
+        frame.addEventListener("touchstart", (e) => {
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        frame.addEventListener("touchend", (e) => {
+          const endY = e.changedTouches[0].clientY;
+          const diff = touchStartY - endY;
+          if (Math.abs(diff) > 30) {
+            if (diff > 0) next();
+            else prev();
+          }
+        }, { passive: true });
+      }
 
       setActiveStyle(order[0]);
     }
