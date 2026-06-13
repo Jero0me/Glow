@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glow Makeup Studio • Studio & On-Location Makeup Artist</title>
+  <meta name="description" content="Glow Makeup Studio offers studio and on-location bridal, casual, prom, bridesmaid, editorial, photoshoot and special event makeup." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-gradient-from: #fbe4e9;
+      --bg-gradient-to: #f3c3d2;
+      --bg-inner: #ffeef4;
+      --surface-main: rgba(255, 255, 255, 0.9);
+      --surface-soft: rgba(255, 245, 249, 0.9);
+      --border-soft: rgba(255, 255, 255, 0.8);
+      --border-strong: rgba(170, 109, 94, 0.45);
+      --text-main: #4d2b30;
+      --text-muted: #8e5c66;
+      --text-soft: #c48ba0;
+      --accent-gold: #f1c46f;
+      --accent-gold-deep: #d9a548;
+      --accent-rose: #e3779b;
+      --accent-berry: #c94a7d;
+      --shadow-soft: 0 24px 60px rgba(170, 74, 104, 0.18);
+      --shadow-subtle: 0 12px 30px rgba(97, 42, 63, 0.15);
+      --radius-lg: 34px;
+      --radius-pill: 999px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-sm: clamp(0.88rem, 0.8rem + 0.25vw, 0.96rem);
+      --text-base: clamp(1rem, 0.96rem + 0.25vw, 1.08rem);
+      --text-lg: clamp(1.1rem, 1rem + 0.6vw, 1.45rem);
+      --text-xl: clamp(1.9rem, 1.4rem + 2vw, 3rem);
+      --text-2xl: clamp(2.7rem, 1.9rem + 3vw, 4.8rem);
+      --transition: 220ms cubic-bezier(.16,1,.3,1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 10% 0, rgba(255,255,255,0.22), transparent 48%),
+        radial-gradient(circle at 100% 100%, rgba(255,255,255,0.18), transparent 42%),
+        linear-gradient(145deg, var(--bg-gradient-from), var(--bg-gradient-to));
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 245, 249, 0.96),
+        rgba(255, 245, 249, 0.8),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      padding: 10px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(171, 88, 94, 0.5));
+    }
+
+    .brand span {
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: var(--text-sm);
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--text-main); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 20px;
+      min-height: 46px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      font-size: var(--text-sm);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
+      color: #2a141b;
+      box-shadow: var(--shadow-subtle);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--accent-gold-deep), var(--accent-berry));
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.7);
+      color: var(--text-main);
+      backdrop-filter: blur(14px);
+    }
+
+    main section {
+      padding: clamp(3.6rem, 9vw, 7.4rem) 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr);
+      gap: clamp(24px, 6vw, 68px);
+      align-items: center;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.9);
+      color: var(--accent-rose);
+      font-size: var(--text-sm);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .tagline-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffe9b8, #ff7b93);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.6);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+
+    .hero-subline {
+      font-size: var(--text-lg);
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      font-size: var(--text-sm);
+      color: var(--text-soft);
+      max-width: 30rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .hero-availability {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 18px;
+      font-size: var(--text-sm);
+      color: var(--text-soft);
+    }
+
+    .dot-available {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #5bd49c;
+      box-shadow: 0 0 0 5px rgba(91,212,156,0.35);
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 20px;
+      border-radius: 40px;
+      background:
+        radial-gradient(circle at 0 0, rgba(255,255,255,0.45), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(255,255,255,0.35), transparent 60%),
+        linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,240,244,0.9));
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+    }
+
+    .hero-panel-bg {
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(255,216,145,0.45), transparent 50%),
+        radial-gradient(circle at 100% 0, rgba(255,146,179,0.42), transparent 52%),
+        radial-gradient(circle at 50% 100%, rgba(255,179,215,0.38), transparent 50%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      z-index: 1;
+    }
+
+    .hero-logo-frame {
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.9);
+      overflow: hidden;
+      background: var(--bg-inner);
+      padding: 18px;
+    }
+
+    .hero-logo-frame img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(43,17,25,0.84);
+      color: #ffe9f5;
+      font-size: 0.78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-badge span {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ffe083;
+    }
+
+    .hero-floating {
+      display: grid;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: rgba(43,17,25,0.76);
+      color: #ffe9f5;
+      font-size: var(--text-sm);
+    }
+
+    .hero-floating strong {
+      font-family: var(--font-display);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      padding: 6px 11px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 0.8rem;
+    }
+
+    /* Animated butterfly in hero */
+    .butterfly {
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      width: 72px;
+      height: 72px;
+      pointer-events: none;
+      opacity: 0.85;
+      animation: butterfly-float 7s ease-in-out infinite alternate;
+    }
+
+    .butterfly svg {
+      width: 100%;
+      height: 100%;
+      transform-origin: center;
+      animation: butterfly-flap 1.6s ease-in-out infinite;
+    }
+
+    @keyframes butterfly-float {
+      0%   { transform: translate(0, 0) rotate(-4deg); }
+      50%  { transform: translate(-10px, -14px) rotate(4deg); }
+      100% { transform: translate(-4px, -4px) rotate(-2deg); }
+    }
+
+    @keyframes butterfly-flap {
+      0%,100% { transform: scale(1) rotate(0deg); }
+      50%     { transform: scale(1.06) rotate(2deg); }
+    }
+
+    .section-heading {
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(255,255,255,0.7);
+      font-size: var(--text-sm);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent-rose);
+      margin-bottom: 10px;
+    }
+
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin: 0 0 6px;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 34rem;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      border-radius: 24px;
+      padding: 18px 18px 16px;
+      background: var(--surface-main);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .service-label {
+      font-size: 0.78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin: 0 0 6px;
+    }
+
+    .service-card p {
+      margin: 0;
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    .services-note {
+      padding: 18px 20px;
+      border-radius: 26px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-subtle);
+      font-size: var(--text-sm);
+      color: var(--text-main);
+    }
+
+    .services-note strong {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 0.82rem;
+    }
+
+    .availability-layout {
+      display: grid;
+      grid-template-columns: minmax(0,0.9fr) minmax(0,1.1fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .availability-panel, form {
+      border-radius: var(--radius-lg);
+      background: var(--surface-main);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-subtle);
+      padding: 20px 22px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.86rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.98);
+      padding: 10px 14px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
+      font-size: 0.96rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent-gold-deep);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.98), 0 0 0 6px rgba(244,198,131,0.4);
+      background: #fffdf8;
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .form-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: var(--text-sm);
+      color: var(--text-soft);
+    }
+
+    footer {
+      padding: 24px 0 34px;
+      font-size: var(--text-sm);
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 800ms ease, transform 800ms ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile optimisations */
+    @media (max-width: 980px) {
+      .hero,
+      .services,
+      .availability-layout {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 2.4rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav { align-items: flex-start; }
+      .nav-links { gap: 10px; justify-content: flex-end; }
+      .service-list { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .brand span { display: none; }
+      .hero { gap: 32px; }
+    }
+
+    @media (max-width: 520px) {
+      body { font-size: 0.98rem; }
+      .nav { gap: 0.6rem; }
+      main section { padding: 3.2rem 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <img src="Design_Pink-removebg-preview.jpg" alt="Glow Makeup Studio logo" loading="eager" />
+        <span>Glow Makeup Studio</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#availability">Availability</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary" href="#availability">Book inquiry</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home">
+      <div class="container hero">
+        <div class="hero-intro reveal">
+          <div class="tagline">
+            <span class="tagline-dot"></span>
+            Studio & on-location
+          </div>
+          <h1>Soft, luminous studio and on-location makeup.</h1>
+          <p class="hero-subline">
+            Bridal, casual, prom, bridesmaid, editorial, photoshoot and special event looks —
+            created in our studio or in your home, hotel or venue.
+          </p>
+          <p class="hero-note">
+            Visit Glow Makeup Studio or request us on-location. The same calm, detailed approach either way — your skin, softly lit from within.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#availability">Check date & inquire</a>
+            <a class="btn btn-ghost" href="#services">View services</a>
+          </div>
+
+          <div class="hero-availability">
+            <span class="dot-available"></span>
+            Currently accepting bookings for bridal, prom and special events.
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal" aria-label="Glow Makeup Studio brand preview">
+          <div class="hero-panel-bg"></div>
+          <div class="hero-card-inner">
+            <div class="hero-logo-frame">
+              <img src="Design_Pink-removebg-preview.jpg" alt="Glow Makeup Studio logo" loading="eager" />
+              <div class="hero-badge">
+                <span></span>
+                Studio & travel
+              </div>
+              <!-- Animated butterfly -->
+              <div class="butterfly" aria-hidden="true">
+                <svg viewBox="0 0 60 60">
+                  <defs>
+                    <linearGradient id="butterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#ff9fbf"/>
+                      <stop offset="40%" stop-color="#ffcf8b"/>
+                      <stop offset="100%" stop-color="#f1c46f"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M30 29c-4-9-11-13-18-13-3 0-5 2-5 5 0 5 4 9 9 9 3 0 5-1 7-2-2 3-3 6-3 9 0 3 1 6 3 7 2 1 4 0 6-2" fill="url(#butterGradient)" opacity="0.95"/>
+                  <path d="M30 29c4-9 11-13 18-13 3 0 5 2 5 5 0 5-4 9-9 9-3 0-5-1-7-2 2 3 3 6 3 9 0 3-1 6-3 7-2 1-4 0-6-2" fill="url(#butterGradient)" opacity="0.95"/>
+                  <circle cx="30" cy="30" r="2.4" fill="#fef6ea"/>
+                  <path d="M30 18c-1 3-1 6 0 9" stroke="#fef6ea" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="hero-floating">
+              <strong>Your glow, your location</strong>
+              <p>
+                Choose a studio session for a classic getting-ready feel, or let us come to your home, hotel or bridal suite with a full professional kit.
+              </p>
+              <div class="pill-row">
+                <span class="pill">Studio appointments</span>
+                <span class="pill">On-location travel</span>
+                <span class="pill">Skin-first approach</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container services">
+        <div>
+          <div class="section-heading reveal">
+            <div class="section-eyebrow">Services</div>
+            <h2>Every glow has a moment.</h2>
+            <p>
+              From quiet bridal mornings to bold editorial shoots, Glow Makeup Studio is built around enhancing your features — not hiding them — while making the entire getting-ready experience feel luxurious.
+            </p>
+          </div>
+
+          <div class="service-list">
+            <article class="service-card reveal">
+              <div class="service-label">Bridal</div>
+              <h3>Bridal glow</h3>
+              <p>
+                Timeless, camera-soft bridal makeup with the option for trials and touch-ups so you stay radiant from vows to last dance.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-label">Bridesmaid</div>
+              <h3>Bridesmaid glam</h3>
+              <p>
+                Cohesive, flattering looks for the bridal party so everyone photographs beautifully while still feeling like themselves.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-label">Prom & casual</div>
+              <h3>Prom & casual</h3>
+              <p>
+                Long-wear looks for prom, graduations and everyday glow-ups — soft or more glam, always matched to your outfit and vibe.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-label">Editorial</div>
+              <h3>Editorial & shoots</h3>
+              <p>
+                Bolder, creative and camera-focused makeup for editorials, content days and professional photoshoots.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-label">Special events</div>
+              <h3>Special event</h3>
+              <p>
+                Custom looks for birthdays, engagements, baby showers and any occasion where you want that extra glow.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-label">Studio & travel</div>
+              <h3>Studio or on-location</h3>
+              <p>
+                Book your appointment at our studio or request travel to your home, hotel or venue for a more relaxed, seamless getting-ready experience.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <aside class="services-note reveal">
+          <strong>How we work</strong>
+          <p style="margin-top: 8px;">
+            We’re a studio-based makeup artist offering optional travel for bridal parties, photoshoots and special events.
+            For each booking, you choose: studio session or on-location.
+          </p>
+          <p style="margin-top: 8px;">
+            In your inquiry, share whether you prefer studio or on-location, your event type, preferred start time, number of faces and address if we are travelling to you.
+            We’ll confirm availability and timing so your day runs calmly and on time.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- AVAILABILITY & FORM -->
+    <section id="availability">
+      <div class="container availability-layout">
+        <aside class="availability-panel reveal">
+          <div class="section-eyebrow">Availability</div>
+          <h2 style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: .12em; margin: 6px 0 8px;">
+            Choose your date.
+          </h2>
+          <p style="margin-top: 0;">
+            Select any future date — your choice flows straight into the inquiry form. Once connected to our booking sheet, we’ll confirm studio times and travel slots for your location.
+          </p>
+
+          <div class="field" style="margin-top: 18px;">
+            <label for="calendar-date">Tap to pick a date</label>
+            <input id="calendar-date" type="date" />
+          </div>
+        </aside>
+
+        <form class="reveal" id="inquiry-form">
+          <div class="section-eyebrow">Booking inquiry</div>
+          <h2 style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: .12em; margin: 6px 0 8px;">
+            Tell us about your glow.
+          </h2>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="+357 ..." required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="service">Makeup type</label>
+              <select id="service" name="service" required>
+                <option value="">Choose a service</option>
+                <option>Bridal</option>
+                <option>Bridesmaid</option>
+                <option>Prom</option>
+                <option>Casual</option>
+                <option>Editorial</option>
+                <option>Photoshoot</option>
+                <option>Special event</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="date">Preferred date</label>
+              <input id="date" name="date" type="text" placeholder="Select a date from the picker" required readonly />
+            </div>
+            <div class="field">
+              <label for="session-type">Session type</label>
+              <select id="session-type" name="sessionType" required>
+                <option value="">Studio or on-location?</option>
+                <option>Studio appointment</option>
+                <option>On-location (we travel to you)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="location">Location / venue</label>
+              <input id="location" name="location" placeholder="Studio or home/hotel/venue address" />
+            </div>
+            <div class="field full">
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" placeholder="Event type, ready-by time, inspiration, skin concerns, anything we should know."></textarea>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <p id="form-message" aria-live="polite"></p>
+            <p>
+              Demo only: this button shows what will be sent once the form is connected to a Google Sheet or booking workflow. In production, each inquiry creates a row with your details and preferred studio or travel location.
+            </p>
+            <button class="btn btn-primary" type="submit">Submit inquiry</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-heading reveal" style="text-align:center;">
+          <div class="section-eyebrow" style="margin-inline:auto;">Contact</div>
+          <h2>Ready for your glow moment?</h2>
+          <p style="margin-inline:auto; max-width: 34rem;">
+            Share your date, whether you prefer a studio session or on-location, and the occasion. We’ll confirm availability, timing and travel so your getting-ready time feels calm, organised and a little bit luxurious.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Glow Makeup Studio • Studio and on-location makeup for bridal, casual, prom, bridesmaid, editorial, photoshoot and special events.
+    </div>
+  </footer>
+
+  <script>
+    // Date picker: only allow today + future dates, any month/year
+    const calendarInput = document.getElementById("calendar-date");
+    const dateDisplay = document.getElementById("date");
+    const form = document.getElementById("inquiry-form");
+    const message = document.getElementById("form-message");
+
+    if (calendarInput) {
+      const today = new Date();
+      const toISO = (d) => d.toISOString().split("T")[0];
+      calendarInput.min = toISO(today); // block past dates [web:48][web:54]
+
+      calendarInput.addEventListener("change", () => {
+        if (!calendarInput.value) return;
+        const chosen = new Date(calendarInput.value + "T00:00:00");
+        const pretty = chosen.toLocaleDateString(undefined, {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        dateDisplay.value = pretty;
+      });
+    }
+
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const payload = Object.fromEntries(new FormData(form).entries());
+        if (!payload.date) {
+          message.textContent = "Please choose a preferred date first.";
+          message.style.color = "#c64c77";
+          return;
+        }
+        message.style.color = "";
+        message.textContent =
+          `Demo only — ready to send to Google Sheets: ` +
+          `${payload.name} requested ${payload.service} on ${payload.date} as a ${payload.sessionType} at ${payload.location || "no location specified"}.`;
+        console.log(payload);
+      });
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.14 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
