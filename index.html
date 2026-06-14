@@ -679,15 +679,12 @@
             <option>On-location (we travel to you)</option>
           </select>
         </div>
-        <div class="field-row">
-          <div class="field"><label for="f-location">Location / venue</label><input id="f-location" name="location" placeholder="Studio or home / hotel / venue" /></div>
-          <div class="field"><label for="f-faces">Number of faces</label><input id="f-faces" name="faces" type="number" min="1" max="30" placeholder="e.g. 3" /></div>
-        </div>
+        <div class="field"><label for="f-location">Location / venue</label><input id="f-location" name="location" placeholder="Studio or home / hotel / venue" /></div>
         <div class="field">
           <label for="f-notes">Notes</label>
           <textarea id="f-notes" name="notes" placeholder="Event type, ready-by time, inspiration, skin concerns, anything else we should know."></textarea>
         </div>
-        <p class="form-note">Demo only — connect to Google Sheets or a booking workflow to go live.</p>
+        <p class="form-note">We'll get back to you as soon as possible — usually within a few hours.</p>
         <button class="btn btn-primary" type="button" onclick="submitInquiry(event)" style="width:100%">Submit inquiry</button>
       </div>
     </div>
@@ -734,12 +731,56 @@ function toggleCard(card) {
   if (!wasOpen) card.classList.add('open');
 }
 
-/* ── FORM DEMO ───────────────────────────────────────────── */
+/* ── FORM → GOOGLE SHEETS ────────────────────────────────── */
+const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL'; // ← paste your URL here
+
 function submitInquiry(e) {
   e.preventDefault();
-  const n = document.getElementById('f-name').value.trim();
-  alert(n ? `Thank you, ${n}! We'll be in touch shortly.` : 'Thank you! Your inquiry has been received.');
+
+  const name        = document.getElementById('f-name').value.trim();
+  const phone       = document.getElementById('f-phone').value.trim();
+  const email       = document.getElementById('f-email').value.trim();
+  const service     = document.getElementById('f-service').value.trim();
+  const date        = document.getElementById('f-date').value.trim();
+  const sessionType = document.getElementById('f-type').value.trim();
+  const location    = document.getElementById('f-location').value.trim();
+  const notes       = document.getElementById('f-notes').value.trim();
+
+  if (!name || !phone || !email || !service || !date || !sessionType) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const btn = document.querySelector('#availability .btn-primary');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phone, email, service, date, sessionType, location, notes })
+  })
+  .then(() => {
+    alert(`Thank you, ${name}! We received your inquiry and will be in touch shortly.`);
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-phone').value = '';
+    document.getElementById('f-email').value = '';
+    document.getElementById('f-service').value = '';
+    document.getElementById('f-date').value = '';
+    document.getElementById('f-type').value = '';
+    document.getElementById('f-location').value = '';
+    document.getElementById('f-notes').value = '';
+  })
+  .catch(() => {
+    alert('Something went wrong. Please email us directly at efipanayiotou2004@gmail.com');
+  })
+  .finally(() => {
+    btn.textContent = 'Submit inquiry';
+    btn.disabled = false;
+  });
 }
+
 const dateInput = document.getElementById('f-date');
 if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
 
