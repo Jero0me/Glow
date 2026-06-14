@@ -3,1037 +3,1048 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow Makeup Studio • Studio & On-Location Makeup Artist</title>
   <meta name="description" content="Glow Makeup Studio offers studio and on-location bridal, casual, prom, bridesmaid, editorial and extreme makeup looks." />
+  <title>Glow Makeup Studio • Studio & On-Location Makeup Artist</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Same Google Fonts as original site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
+    /* ─────────────────────────────────────────────────────────
+       TOKENS — pulled from original site palette
+    ───────────────────────────────────────────────────────── */
     :root {
-      --bg-gradient-from: #fbe4e9;
-      --bg-gradient-to: #f3c3d2;
-      --bg-inner: #ffeef4;
-      --surface-main: rgba(255, 255, 255, 0.9);
-      --surface-soft: rgba(255, 245, 249, 0.9);
-      --border-soft: rgba(255, 255, 255, 0.8);
-      --border-strong: rgba(170, 109, 94, 0.45);
-      --text-main: #4d2b30;
-      --text-muted: #8e5c66;
-      --text-soft: #c48ba0;
-      --accent-gold: #f1c46f;
-      --accent-gold-deep: #d9a548;
-      --accent-rose: #e3779b;
-      --accent-berry: #c94a7d;
-      --shadow-soft: 0 24px 60px rgba(170, 74, 104, 0.18);
-      --shadow-subtle: 0 12px 30px rgba(97, 42, 63, 0.15);
-      --radius-lg: 34px;
-      --radius-pill: 999px;
-      --font-display: "Cormorant Garamond", Georgia, serif;
-      --font-body: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      --text-sm: clamp(0.88rem, 0.8rem + 0.25vw, 0.96rem);
-      --text-base: clamp(1rem, 0.96rem + 0.25vw, 1.08rem);
-      --text-lg: clamp(1.1rem, 1rem + 0.6vw, 1.45rem);
-      --text-xl: clamp(1.9rem, 1.4rem + 2vw, 3rem);
-      --text-2xl: clamp(2.7rem, 1.9rem + 3vw, 4.8rem);
-      --transition: 220ms cubic-bezier(.16,1,.3,1);
+      /* Original site colours */
+      --cream:   #fdf6f0;
+      --blush:   #f5e6e8;
+      --rose:    #e8b4bc;
+      --mauve:   #c4788a;
+      --deep:    #8b4f5e;
+      --ink:     #2c1f27;
+      --mist:    #9a7e85;
+      --white:   #ffffff;
+
+      --ff-serif: 'Cormorant Garamond', Georgia, serif;
+      --ff-sans:  'Jost', system-ui, sans-serif;
+      --ease:     cubic-bezier(.4,0,.2,1);
+
+      /* Butterfly trail column width */
+      --trail-w: 52px;
     }
 
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font-body);
-      font-size: var(--text-base);
-      color: var(--text-main);
-      background:
-        radial-gradient(circle at 10% 0, rgba(255,255,255,0.22), transparent 48%),
-        radial-gradient(circle at 100% 100%, rgba(255,255,255,0.18), transparent 42%),
-        linear-gradient(145deg, var(--bg-gradient-from), var(--bg-gradient-to));
+      font-family: var(--ff-sans);
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
     }
 
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-    button, input, select, textarea { font: inherit; }
-
-    .container {
-      width: min(1160px, calc(100% - 32px));
-      margin: 0 auto;
+    /* ─────────────────────────────────────────────────────────
+       SPLASH
+    ───────────────────────────────────────────────────────── */
+    #splash {
+      position: fixed; inset: 0;
+      background: var(--cream);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 10000;
+      transition: opacity .9s var(--ease), visibility .9s;
     }
+    #splash.gone { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      backdrop-filter: blur(20px);
-      background: linear-gradient(to bottom, rgba(255, 245, 249, 0.96), rgba(255, 245, 249, 0.8), transparent);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    #splash-logo {
+      width: min(300px, 72vw);
+      animation: splashIn 1.4s var(--ease) forwards;
+      filter: drop-shadow(0 12px 40px rgba(196,120,138,.28));
     }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.2rem;
-      padding: 10px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand img {
-      width: 54px;
-      height: 54px;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 24px rgba(171, 88, 94, 0.5));
-    }
-
-    .brand span {
-      font-weight: 700;
-      letter-spacing: .18em;
+    #splash-sub {
+      margin-top: 24px;
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      letter-spacing: .24em;
       text-transform: uppercase;
-      font-size: 0.78rem;
-      color: var(--text-soft);
-      white-space: nowrap;
+      color: var(--mist);
+      animation: fadeUp .6s 1.1s both;
+    }
+    @keyframes splashIn {
+      0%   { opacity:0; transform:scale(.82) translateY(14px); }
+      65%  { opacity:1; transform:scale(1.04) translateY(0); }
+      100% { opacity:1; transform:scale(1)    translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: var(--text-sm);
+    /* ─────────────────────────────────────────────────────────
+       BUTTERFLY OVERLAY  — full-page fixed canvas on left
+    ───────────────────────────────────────────────────────── */
+    #bf-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--trail-w);
+      height: 100%;
+      pointer-events: none;
+      z-index: 500;
+      overflow: visible;
     }
 
-    .nav-links a {
-      color: var(--text-muted);
-      letter-spacing: .1em;
-      text-transform: uppercase;
+    /* The butterfly <img> is positioned absolutely over the canvas
+       so we can animate it freely without SVG coordinate transforms */
+    #bf-img {
+      position: fixed;
+      width: 72px;
+      pointer-events: none;
+      z-index: 501;
+      transform-origin: center center;
+      /* will be positioned by JS */
+      left: -120px; top: 50%;
     }
 
-    .nav-links a:hover { color: var(--text-main); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 0 20px;
-      min-height: 46px;
-      border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      font-size: var(--text-sm);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
-      color: #2a141b;
-      box-shadow: var(--shadow-subtle);
-      border-color: rgba(255, 255, 255, 0.9);
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, var(--accent-gold-deep), var(--accent-berry));
-    }
-
-    .btn-ghost {
-      background: rgba(255,255,255,0.12);
-      border-color: rgba(255,255,255,0.7);
-      color: var(--text-main);
+    /* ─────────────────────────────────────────────────────────
+       NAV  — identical feel to original
+    ───────────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 400;
+      background: rgba(253,246,240,.94);
       backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(232,180,188,.32);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px,5vw,56px);
+      height: 62px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 9px;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 36px; filter: drop-shadow(0 2px 8px rgba(196,120,138,.2)); }
+    .nav-brand span {
+      font-family: var(--ff-serif);
+      font-size: 22px; font-weight: 500;
+      color: var(--ink); letter-spacing: .04em;
+    }
+    .nav-links {
+      display: flex; gap: clamp(14px,2.6vw,34px);
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11.5px; letter-spacing: .13em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--mist); transition: color .22s;
+    }
+    .nav-links a:hover { color: var(--mauve); }
+    .nav-cta {
+      background: var(--mauve);
+      color: var(--white) !important;
+      padding: 8px 22px;
+      border-radius: 30px;
+    }
+    .nav-cta:hover { background: var(--deep) !important; }
+    @media(max-width:600px){ .nav-links { display:none; } }
+
+    /* ─────────────────────────────────────────────────────────
+       PAGE BODY — left margin equal to trail column
+    ───────────────────────────────────────────────────────── */
+    .page-inner {
+      /* push content away from butterfly lane */
+      margin-left: var(--trail-w);
     }
 
-    main section {
-      padding: clamp(3.6rem, 9vw, 7.4rem) 0;
-    }
-
-    .hero {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr);
-      gap: clamp(24px, 6vw, 68px);
-      align-items: center;
-    }
-
-    .tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      background: rgba(255,255,255,0.4);
-      border: 1px solid rgba(255,255,255,0.9);
-      color: var(--accent-rose);
-      font-size: var(--text-sm);
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .tagline-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0, #ffe9b8, #ff7b93);
-      box-shadow: 0 0 0 6px rgba(255,255,255,0.6);
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin: 0 0 12px;
-    }
-
-    .hero-subline {
-      font-size: var(--text-lg);
-      color: var(--text-muted);
-      max-width: 32rem;
-    }
-
-    .hero-note {
-      margin-top: 18px;
-      font-size: var(--text-sm);
-      color: var(--text-soft);
-      max-width: 30rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .hero-availability {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-top: 18px;
-      font-size: var(--text-sm);
-      color: var(--text-soft);
-    }
-
-    .dot-available {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: #5bd49c;
-      box-shadow: 0 0 0 5px rgba(91,212,156,0.35);
-    }
-
-    .hero-panel {
-      position: relative;
-      padding: 20px;
-      border-radius: 40px;
-      background:
-        radial-gradient(circle at 0 0, rgba(255,255,255,0.45), transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(255,255,255,0.35), transparent 60%),
-        linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,240,244,0.9));
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--border-soft);
-      overflow: hidden;
-    }
-
-    .hero-panel-bg {
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0 0, rgba(255,216,145,0.45), transparent 50%),
-        radial-gradient(circle at 100% 0, rgba(255,146,179,0.42), transparent 52%),
-        radial-gradient(circle at 50% 100%, rgba(255,179,215,0.38), transparent 50%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .hero-card-inner {
-      position: relative;
-      display: grid;
-      grid-template-rows: auto auto;
-      gap: 16px;
-      z-index: 1;
-    }
-
-    .hero-logo-frame {
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,0.9);
-      overflow: hidden;
-      background: var(--bg-inner);
-      padding: 18px;
-    }
-
-    .hero-logo-frame img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
-
-    .hero-badge {
-      position: absolute;
-      top: 22px;
-      left: 22px;
-      padding: 8px 12px;
-      border-radius: var(--radius-pill);
-      background: rgba(43,17,25,0.84);
-      color: #ffe9f5;
-      font-size: 0.78rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .hero-badge span {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ffe083;
-    }
-
-    .hero-floating {
-      display: grid;
-      gap: 10px;
-      padding: 16px 18px;
-      border-radius: 22px;
-      background: rgba(43,17,25,0.86);
-      color: #ffe9f5;
-      font-size: var(--text-sm);
-    }
-
-    .hero-floating strong {
-      font-family: var(--font-display);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .pill {
-      padding: 6px 11px;
-      border-radius: var(--radius-pill);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.25);
-      font-size: 0.8rem;
-    }
-
-    .butterfly {
-      position: absolute;
-      right: 6%;
-      top: 12%;
-      width: clamp(80px, 12vw, 130px);
-      height: auto;
-      pointer-events: none;
-      opacity: 0.9;
-      z-index: 0;
-      animation: butterfly-float 12s ease-in-out infinite alternate;
-    }
-
-    .butterfly svg {
-      width: 100%;
-      height: 100%;
-      transform-origin: center;
-      animation: butterfly-flap 1.8s ease-in-out infinite;
-    }
-
-    @keyframes butterfly-float {
-      0% { transform: translate(0, 0) rotate(-6deg); }
-      50% { transform: translate(-10px, -22px) rotate(4deg); }
-      100% { transform: translate(-4px, 6px) rotate(-3deg); }
-    }
-
-    @keyframes butterfly-flap {
-      0%,100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.08) rotate(2deg); }
-    }
-
-    .section-heading {
-      text-align: left;
-      margin-bottom: 28px;
-    }
-
-    .section-eyebrow {
-      display: inline-flex;
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      background: rgba(255,255,255,0.35);
-      border: 1px solid rgba(255,255,255,0.7);
-      font-size: var(--text-sm);
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--accent-rose);
-      margin-bottom: 10px;
-    }
-
-    .section-heading h2 {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      margin: 0 0 6px;
-    }
-
-    .section-heading p {
-      margin: 0;
-      color: var(--text-muted);
-      max-width: 34rem;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr);
-      gap: 34px;
-      align-items: start;
-    }
-
-    .service-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .service-card {
-      border-radius: 24px;
-      padding: 18px 18px 16px;
-      background: var(--surface-main);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-subtle);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
-    }
-
-    .service-label {
-      font-size: 0.78rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 4px;
-    }
-
-    .service-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      margin: 0 0 6px;
-    }
-
-    .service-card p {
-      margin: 0;
-      font-size: var(--text-sm);
-      color: var(--text-muted);
-    }
-
-    .service-card--linked.is-active {
-      border-color: rgba(241,196,111,0.9);
-      box-shadow: 0 18px 40px rgba(171, 88, 94, 0.25);
-      background: rgba(255,255,255,0.98);
-      transform: translateY(-4px);
-    }
-
-    .services-note {
-      padding: 18px 20px;
-      border-radius: 26px;
-      background: var(--surface-soft);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow-subtle);
-      font-size: var(--text-sm);
-      color: var(--text-main);
-      margin-top: 18px;
-    }
-
-    .services-note strong {
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      font-size: 0.82rem;
-    }
-
-    .services-gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      align-self: stretch;
-      min-height: 100%;
-    }
-
-    .services-gallery__frame {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 0 0, rgba(255,255,255,0.5), transparent 56%),
-        radial-gradient(circle at 100% 100%, rgba(255,255,255,0.4), transparent 60%),
-        linear-gradient(145deg, #fce8f0, #f6c7d6);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      min-height: 100%;
-      flex: 1;
-    }
-
-    .services-gallery__image {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      opacity: 0;
-      transform: scale(1.02);
-      transition: opacity 420ms var(--transition), transform 420ms var(--transition);
-    }
-
-    .services-gallery__image.is-active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .services-gallery__controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .services-gallery__arrow {
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.8);
-      box-shadow: 0 8px 22px rgba(160,80,110,0.35);
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--text-soft);
-    }
-
-    .services-gallery__dots {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .services-gallery__dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.7);
-      cursor: pointer;
-    }
-
-    .services-gallery__dot.is-active {
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
-      box-shadow: 0 0 0 4px rgba(241,196,111,0.35);
-    }
-
-    .availability-layout {
-      display: grid;
-      grid-template-columns: minmax(0,1fr);
-      gap: 26px;
-      align-items: start;
-    }
-
-    form {
-      border-radius: var(--radius-lg);
-      background: var(--surface-main);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-subtle);
-      padding: 20px 22px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field.full { grid-column: 1 / -1; }
-
-    label {
-      font-size: 0.86rem;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-    }
-
-    input, select, textarea {
-      width: 100%;
-      min-height: 48px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.95);
-      background: rgba(255,255,255,0.98);
-      padding: 10px 14px;
-      color: var(--text-main);
-      outline: none;
-      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
-      font-size: 0.96rem;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--accent-gold-deep);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.98), 0 0 0 6px rgba(244,198,131,0.4);
-      background: #fffdf8;
-      transform: translateY(-1px);
-    }
-
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .form-footer {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 16px;
-      font-size: var(--text-sm);
-      color: var(--text-soft);
-    }
-
-    footer {
-      padding: 24px 0 34px;
-      font-size: var(--text-sm);
-      color: var(--text-soft);
+    /* ─────────────────────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────────────────────── */
+    #home {
+      min-height: 92vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       text-align: center;
+      padding: clamp(60px,10vh,120px) clamp(28px,6vw,80px);
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--mauve);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(40px,7vw,86px);
+      font-weight: 300; line-height: 1.07;
+      color: var(--ink);
+      max-width: 740px; margin: 0 auto 26px;
+    }
+    .hero-title em { font-style: italic; color: var(--mauve); }
+    .hero-sub {
+      font-size: 15px; line-height: 1.78;
+      color: var(--mist);
+      max-width: 500px; margin: 0 auto 38px;
+    }
+    .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 13px 30px; border-radius: 30px;
+      font-size: 11.5px; letter-spacing: .14em;
+      text-transform: uppercase; text-decoration: none;
+      transition: all .26s var(--ease);
+      font-family: var(--ff-sans); cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--mauve); color: var(--white); }
+    .btn-primary:hover { background: var(--deep); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--mauve);
+      border: 1.5px solid var(--rose);
+    }
+    .btn-ghost:hover { background: var(--rose); color: var(--ink); transform: translateY(-2px); }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 38px; padding: 9px 20px;
+      border-radius: 30px; background: var(--blush);
+      font-size: 12px; color: var(--mauve); letter-spacing: .08em;
+    }
+    .hero-badge::before {
+      content:''; width:7px; height:7px; border-radius:50%;
+      background:var(--mauve); animation: blink 2s infinite;
+    }
+    @keyframes blink {
+      0%,100%{opacity:1;transform:scale(1)}
+      50%{opacity:.4;transform:scale(1.5)}
     }
 
+    /* ─────────────────────────────────────────────────────────
+       SHARED SECTION STYLES
+    ───────────────────────────────────────────────────────── */
+    .section {
+      padding: clamp(68px,10vh,110px) clamp(28px,6vw,80px);
+      scroll-margin-top: 62px;
+    }
+    .sec-label {
+      font-size: 10px; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--rose);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::after {
+      content:''; flex:1; max-width:36px; height:1px; background:var(--rose);
+    }
+    .sec-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(30px,4.4vw,56px);
+      font-weight: 300; line-height: 1.13;
+      color: var(--ink); max-width: 580px; margin-bottom: 14px;
+    }
+    .sec-title em { font-style:italic; color:var(--mauve); }
+    .sec-intro {
+      font-size: 14.5px; line-height: 1.76;
+      color: var(--mist); max-width: 500px; margin-bottom: 48px;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       SERVICES  (expandable cards — same as before, kept)
+    ───────────────────────────────────────────────────────── */
+    #services { background: var(--white); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%,295px),1fr));
+      gap: 14px;
+    }
+    .service-card {
+      border: 1.5px solid var(--blush);
+      border-radius: 16px; overflow: hidden;
+      background: var(--cream);
+      transition: border-color .28s, box-shadow .28s;
+      cursor: pointer;
+    }
+    .service-card:hover { border-color: var(--rose); box-shadow: 0 6px 28px rgba(196,120,138,.11); }
+    .service-card.open  { border-color: var(--mauve); box-shadow: 0 10px 36px rgba(196,120,138,.18); }
+
+    .card-header {
+      display: flex; align-items: center; gap: 13px;
+      padding: 20px 22px; user-select: none;
+    }
+    .card-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--blush);
+      display: grid; place-items: center;
+      font-size: 19px; flex-shrink: 0;
+      transition: background .28s;
+    }
+    .service-card.open .card-icon { background: var(--rose); }
+    .card-meta { flex:1; }
+    .card-tag {
+      font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--mauve); margin-bottom: 3px;
+    }
+    .card-name {
+      font-family: var(--ff-serif);
+      font-size: 21px; font-weight: 400;
+      color: var(--ink); line-height: 1.15;
+    }
+    .card-chevron {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid var(--blush);
+      display: grid; place-items: center; flex-shrink: 0;
+      color: var(--mauve);
+      transition: transform .38s var(--ease), background .28s, border-color .28s;
+    }
+    .service-card.open .card-chevron {
+      transform: rotate(180deg);
+      background: var(--mauve); border-color: var(--mauve); color: var(--white);
+    }
+
+    .card-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .44s var(--ease);
+    }
+    .service-card.open .card-body { grid-template-rows: 1fr; }
+    .card-body-inner { overflow: hidden; }
+
+    .card-desc {
+      padding: 0 22px 18px;
+      font-size: 13.5px; line-height: 1.72; color: var(--mist);
+      border-bottom: 1px solid var(--blush);
+    }
+    .card-photos {
+      display: flex; gap: 9px; overflow-x: auto;
+      padding: 16px 22px 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .card-photos::-webkit-scrollbar { display:none; }
+    .card-photos img {
+      flex-shrink:0; width:150px; height:188px;
+      object-fit:cover; border-radius:10px;
+      scroll-snap-align:start; background:var(--blush);
+    }
+    .card-photo-ph {
+      flex-shrink:0; width:150px; height:188px;
+      border-radius:10px; background:var(--blush);
+      display:grid; place-items:center;
+      color:var(--rose); font-size:26px;
+      border:1.5px dashed var(--rose);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       HOW IT WORKS
+    ───────────────────────────────────────────────────────── */
+    #how { background: var(--blush); }
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(190px,1fr));
+      gap: 22px;
+    }
+    .step-card {
+      padding: 26px 22px; border-radius: 14px; background: var(--white);
+    }
+    .step-num {
+      font-family: var(--ff-serif); font-size: 40px;
+      font-weight: 300; color: var(--rose); line-height:1; margin-bottom:10px;
+    }
+    .step-title {
+      font-family: var(--ff-serif); font-size: 19px;
+      font-weight: 400; color: var(--ink); margin-bottom: 7px;
+    }
+    .step-body { font-size: 13.5px; line-height: 1.7; color: var(--mist); }
+
+    /* ─────────────────────────────────────────────────────────
+       INQUIRY FORM
+    ───────────────────────────────────────────────────────── */
+    #availability { background: var(--white); }
+    .form-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start;
+    }
+    @media(max-width:700px){ .form-wrap { grid-template-columns:1fr; } }
+    .form-aside-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(26px,4vw,46px);
+      font-weight: 300; line-height: 1.18;
+      color: var(--ink); margin-bottom: 18px;
+    }
+    .form-aside-title em { font-style:italic; color:var(--mauve); }
+    .form-aside-body { font-size:14px; line-height:1.78; color:var(--mist); margin-bottom:28px; }
+    .aside-list { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .aside-list li {
+      display:flex; align-items:center; gap:11px;
+      font-size:13.5px; color:var(--ink);
+    }
+    .aside-list li::before {
+      content:''; width:7px; height:7px; border-radius:50%;
+      background:var(--rose); flex-shrink:0;
+    }
+    .inquiry-form { display:flex; flex-direction:column; gap:15px; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+    @media(max-width:480px){ .field-row { grid-template-columns:1fr; } }
+    .field { display:flex; flex-direction:column; gap:5px; }
+    .field label {
+      font-size:10.5px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--mauve);
+    }
+    .field input, .field select, .field textarea {
+      padding: 13px 16px;
+      border: 1.5px solid var(--blush);
+      border-radius: 11px;
+      background: var(--cream);
+      font-family: var(--ff-sans);
+      font-size: 14px; color: var(--ink);
+      outline: none; transition: border-color .22s;
+      width: 100%;
+      -webkit-appearance:none; appearance:none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--mauve);
+    }
+    .field textarea { resize:vertical; min-height:96px; }
+    .form-note {
+      font-size:12px; color:var(--mist);
+      padding:11px 15px; background:var(--blush);
+      border-radius:9px; line-height:1.6;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────────────────────── */
+    #contact { background: var(--blush); text-align:center; }
+    #contact .sec-title { margin:0 auto 14px; }
+    #contact .sec-intro { margin:0 auto 36px; }
+    #contact .sec-label { justify-content:center; }
+    #contact .sec-label::after { display:none; }
+    .chip-row { display:flex; flex-wrap:wrap; gap:11px; justify-content:center; }
+    .chip {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 22px; border-radius:30px;
+      background:var(--white); border:1.5px solid var(--rose);
+      font-size:13px; color:var(--ink); text-decoration:none;
+      transition:all .22s;
+    }
+    .chip:hover { background:var(--rose); border-color:var(--rose); }
+
+    /* ─────────────────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────────────────── */
+    footer {
+      text-align:center; padding:38px 24px;
+      font-size:12px; color:var(--mist);
+      border-top:1px solid var(--blush);
+      background:var(--cream); letter-spacing:.07em;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────────────────────── */
     .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 800ms ease, transform 800ms ease;
+      opacity:0; transform:translateY(22px);
+      transition: opacity .68s var(--ease), transform .68s var(--ease);
     }
+    .reveal.visible { opacity:1; transform:none; }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 980px) {
-      .hero,
-      .services {
-        grid-template-columns: 1fr;
-      }
-      .hero { padding-top: 2.4rem; }
-      .butterfly { right: 8%; top: 4%; }
-    }
-
-    @media (max-width: 900px) {
-      .service-list { grid-template-columns: 1fr; }
-      .services-gallery { order: -1; }
-    }
-
-    @media (max-width: 720px) {
-      .nav { align-items: flex-start; }
-      .nav-links { gap: 10px; justify-content: flex-end; }
-      .form-grid { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
-      .brand span { display: none; }
-      .hero { gap: 32px; }
-      .butterfly { top: 6%; right: 4%; width: 90px; }
-    }
-
-    @media (max-width: 520px) {
-      body { font-size: 0.98rem; }
-      .nav { gap: 0.6rem; }
-      main section { padding: 3.2rem 0; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
+    /* ─────────────────────────────────────────────────────────
+       REDUCED MOTION
+    ───────────────────────────────────────────────────────── */
+    @media(prefers-reduced-motion:reduce){
       *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        animation-duration:.01ms !important;
+        transition-duration:.01ms !important;
       }
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <div class="container nav">
-      <a href="#home" class="brand">
-        <img src="Design_Pink-removebg-preview.jpg" alt="Glow Makeup Studio logo" loading="eager" />
-        <span>Glow Makeup Studio</span>
-      </a>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#services">Services</a>
-        <a href="#availability">Inquiry</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-primary" href="#availability">Book inquiry</a>
-      </nav>
+<!-- ── SPLASH ──────────────────────────────────────────────────── -->
+<div id="splash">
+  <img id="splash-logo" src="Design_Pink-removebg-preview.jpg" alt="Glow Makeup Studio" />
+  <p id="splash-sub">Studio &amp; on-location · Paphos, Cyprus</p>
+</div>
+
+<!-- ── BUTTERFLY IMAGE (floats freely via JS) ─────────────────── -->
+<img id="bf-img" src="Design_Pink-removebg-preview.jpg" alt="" aria-hidden="true" />
+
+<!-- ── TRAIL SVG CANVAS (left strip) ──────────────────────────── -->
+<svg id="bf-canvas" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g id="trail"></g>
+</svg>
+
+<!-- ── NAV ─────────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-brand" href="#home">
+    <img src="Design_Pink-removebg-preview.jpg" alt="Glow logo" />
+    <span>Glow</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#availability">Inquiry</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#availability" class="nav-cta">Book inquiry</a></li>
+  </ul>
+</nav>
+
+<!-- ── PAGE CONTENT ────────────────────────────────────────────── -->
+<div class="page-inner">
+
+  <!-- HERO -->
+  <section id="home">
+    <p class="hero-eyebrow reveal">Studio &amp; on-location · Paphos, Cyprus</p>
+    <h1 class="hero-title reveal">
+      Soft, <em>luminous</em> makeup —<br>your space or ours.
+    </h1>
+    <p class="hero-sub reveal">
+      Bridal, prom, editorial, and everyday glam created in our studio
+      or at your home, hotel, or venue.
+    </p>
+    <div class="btn-row reveal">
+      <a href="#availability" class="btn btn-primary">Check date &amp; inquire</a>
+      <a href="#services" class="btn btn-ghost">View services</a>
     </div>
-  </header>
+    <div class="hero-badge reveal">Currently accepting bridal, prom &amp; event bookings</div>
+  </section>
 
-  <main>
-    <section id="home">
-      <div class="container hero">
-        <div class="butterfly" aria-hidden="true">
-          <svg viewBox="0 0 60 60">
-            <defs>
-              <linearGradient id="butterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff9fbf"/>
-                <stop offset="40%" stop-color="#ffcf8b"/>
-                <stop offset="100%" stop-color="#f1c46f"/>
-              </linearGradient>
-            </defs>
-            <path d="M30 29c-4-9-11-13-18-13-3 0-5 2-5 5 0 5 4 9 9 9 3 0 5-1 7-2-2 3-3 6-3 9 0 3 1 6 3 7 2 1 4 0 6-2" fill="url(#butterGradient)" opacity="0.95"/>
-            <path d="M30 29c4-9 11-13 18-13 3 0 5 2 5 5 0 5-4 9-9 9-3 0-5-1-7-2 2 3 3 6 3 9 0 3-1 6-3 7-2 1-4 0-6-2" fill="url(#butterGradient)" opacity="0.95"/>
-            <circle cx="30" cy="30" r="2.4" fill="#fef6ea"/>
-            <path d="M30 18c-1 3-1 6 0 9" stroke="#fef6ea" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
+  <!-- SERVICES -->
+  <section id="services" class="section" data-section-dot>
+    <p class="sec-label reveal">What we create</p>
+    <h2 class="sec-title reveal">Glow looks, for <em>every kind of day.</em></h2>
+    <p class="sec-intro reveal">
+      Tap any style to see examples and learn more — we craft soft, flattering
+      looks that feel like <em>you</em>, just more luminous.
+    </p>
 
-        <div class="hero-intro reveal">
-          <div class="tagline"><span class="tagline-dot"></span>Studio & on-location</div>
-          <h1>Soft, luminous studio and on-location makeup.</h1>
-          <p class="hero-subline">
-            Bridal, casual, prom, bridesmaid, editorial and extreme makeup looks —
-            created in our studio or in your home, hotel or venue.
-          </p>
-          <p class="hero-note">
-            Visit Glow Makeup Studio or request us on-location. The same calm, detailed approach either way —
-            your skin, softly lit from within.
-          </p>
+    <div class="services-grid reveal">
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#availability">Check date & inquire</a>
-            <a class="btn btn-ghost" href="#services">View services</a>
+      <div class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">🌸</div>
+          <div class="card-meta">
+            <p class="card-tag">Studio &amp; on-location</p>
+            <h3 class="card-name">Bridal Glow</h3>
           </div>
-
-          <div class="hero-availability">
-            <span class="dot-available"></span>
-            Currently accepting bookings for bridal, prom and special events.
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
         </div>
-
-        <aside class="hero-panel reveal" aria-label="Glow Makeup Studio brand preview">
-          <div class="hero-panel-bg"></div>
-          <div class="hero-card-inner">
-            <div class="hero-logo-frame">
-              <img src="Design_Pink-removebg-preview.jpg" alt="Glow Makeup Studio logo" loading="eager" />
-              <div class="hero-badge"><span></span>Studio & travel</div>
-            </div>
-            <div class="hero-floating">
-              <strong>Your glow, your location</strong>
-              <p>
-                Studio sessions for a classic getting‑ready feel, or on‑location glam
-                at your home, hotel or bridal suite with a full professional kit.
-              </p>
-              <div class="pill-row">
-                <span class="pill">Studio appointments</span>
-                <span class="pill">On-location travel</span>
-                <span class="pill">Skin-first approach</span>
-              </div>
-            </div>
+        <div class="card-body"><div class="card-body-inner">
+          <p class="card-desc">Soft, long-wear bridal makeup designed to stay fresh through photos, vows, and celebrations. Optional trials available, plus touch-up planning so your day feels seamless and calm.</p>
+          <div class="card-photos">
+            <img src="style-bridal.jpg" alt="Bridal glow" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">💐</div>
+            <div class="card-photo-ph">💐</div>
           </div>
-        </aside>
+        </div></div>
       </div>
-    </section>
 
-    <section id="services">
-      <div class="container services">
-        <div>
-          <div class="section-heading reveal">
-            <div class="section-eyebrow">Services</div>
-            <h2>Glow looks, for every kind of day.</h2>
-            <p>
-              Whether it’s a wedding morning, content shoot or a night out,
-              Glow Makeup Studio creates soft, flattering looks that feel like you —
-              just a little more polished and luminous.
-            </p>
+      <div class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">💗</div>
+          <div class="card-meta">
+            <p class="card-tag">Group bookings welcome</p>
+            <h3 class="card-name">Bridesmaid Glam</h3>
           </div>
-
-          <div class="service-list" id="service-list">
-            <article class="service-card reveal service-card--linked" data-style="bridal">
-              <div class="service-label">Bridal</div>
-              <h3>Bridal glow</h3>
-              <p>Soft, long-wear bridal makeup designed to stay fresh through photos, vows and celebrations, with optional trials and touch-up planning.</p>
-            </article>
-
-            <article class="service-card reveal service-card--linked" data-style="bridesmaid">
-              <div class="service-label">Bridesmaid</div>
-              <h3>Bridesmaid glam</h3>
-              <p>Coordinated makeup for your bridal party with balanced tones, flattering definition and a polished finish in photos.</p>
-            </article>
-
-            <article class="service-card reveal service-card--linked" data-style="prom">
-              <div class="service-label">Prom</div>
-              <h3>Prom glam</h3>
-              <p>Elegant event makeup with a soft-glam finish, made to last through dancing, photos and the full night.</p>
-            </article>
-
-            <article class="service-card reveal service-card--linked" data-style="editorial">
-              <div class="service-label">Editorial</div>
-              <h3>Editorial & shoots</h3>
-              <p>Fashion-forward or clean-beauty looks for campaigns, creative shoots and polished content days.</p>
-            </article>
-
-            <article class="service-card reveal service-card--linked" data-style="extreme">
-              <div class="service-label">Extreme makeup</div>
-              <h3>Extreme makeup</h3>
-              <p>Bold, high-impact looks with stronger color, sharper detail and a more dramatic finish for statement moments.</p>
-            </article>
-
-            <article class="service-card reveal service-card--linked" data-style="casual">
-              <div class="service-label">Casual</div>
-              <h3>Casual glam</h3>
-              <p>Light, natural makeup for everyday plans, dinners or events when you want to look refreshed without feeling overdone.</p>
-            </article>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-
-          <aside class="services-note reveal">
-            <strong>How we work</strong>
-            <p style="margin-top: 8px;">
-              Every booking starts with a simple enquiry — you choose your date, service and whether you’d like a studio appointment or on-location visit.
-            </p>
-            <p style="margin-top: 8px;">
-              In your message, include your event type, preferred ready-by time, number of faces and location. We’ll reply with availability and a clear plan for the day.
-            </p>
-          </aside>
         </div>
-
-        <aside class="services-gallery reveal" aria-label="Example looks gallery">
-          <div class="services-gallery__frame">
-            <img src="style-bridal.jpg" alt="Bridal glow makeup look" class="services-gallery__image is-active" data-style="bridal" />
-            <img src="style-bridesmaid.jpg" alt="Bridesmaid glam makeup look" class="services-gallery__image" data-style="bridesmaid" />
-            <img src="style-prom.jpg" alt="Prom glam makeup look" class="services-gallery__image" data-style="prom" />
-            <img src="style-editorial.jpg" alt="Editorial and shoots makeup look" class="services-gallery__image" data-style="editorial" />
-            <img src="style-extreme.jpg" alt="Extreme makeup look" class="services-gallery__image" data-style="extreme" />
-            <img src="style-casual.jpg" alt="Casual glam makeup look" class="services-gallery__image" data-style="casual" />
+        <div class="card-body"><div class="card-body-inner">
+          <p class="card-desc">Coordinated makeup for your bridal party with balanced tones, flattering definition, and a polished finish that photographs beautifully across different skin tones.</p>
+          <div class="card-photos">
+            <img src="style-bridesmaid.jpg" alt="Bridesmaid glam" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">💗</div>
+            <div class="card-photo-ph">💗</div>
           </div>
-
-          <div class="services-gallery__controls" aria-label="Switch example look">
-            <button type="button" class="services-gallery__arrow" data-gallery-prev aria-label="Previous look">‹</button>
-            <div class="services-gallery__dots">
-              <button type="button" class="services-gallery__dot is-active" data-style="bridal" aria-label="Bridal look"></button>
-              <button type="button" class="services-gallery__dot" data-style="bridesmaid" aria-label="Bridesmaid look"></button>
-              <button type="button" class="services-gallery__dot" data-style="prom" aria-label="Prom look"></button>
-              <button type="button" class="services-gallery__dot" data-style="editorial" aria-label="Editorial look"></button>
-              <button type="button" class="services-gallery__dot" data-style="extreme" aria-label="Extreme makeup look"></button>
-              <button type="button" class="services-gallery__dot" data-style="casual" aria-label="Casual glam look"></button>
-            </div>
-            <button type="button" class="services-gallery__arrow" data-gallery-next aria-label="Next look">›</button>
-          </div>
-        </aside>
+        </div></div>
       </div>
-    </section>
 
-    <section id="contact">
-      <div class="container">
-        <div class="section-heading reveal" style="text-align:center;">
-          <div class="section-eyebrow" style="margin-inline:auto;">Contact</div>
-          <h2>Ready for your glow moment?</h2>
-          <p style="margin-inline:auto; max-width: 34rem;">
-            Share your date, whether you prefer a studio session or on-location, and the occasion.
-            We’ll confirm availability, timing and travel so your getting-ready time feels calm,
-            organised and a little bit luxurious.
-          </p>
+      <div class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">✨</div>
+          <div class="card-meta">
+            <p class="card-tag">All-night wear</p>
+            <h3 class="card-name">Prom Glam</h3>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
+        <div class="card-body"><div class="card-body-inner">
+          <p class="card-desc">Elegant event makeup with a soft-glam finish, made to last through dancing, photos, and the full night. Long-wear formula, camera-ready from first flash to last.</p>
+          <div class="card-photos">
+            <img src="style-prom.jpg" alt="Prom glam" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">✨</div>
+            <div class="card-photo-ph">✨</div>
+          </div>
+        </div></div>
       </div>
-    </section>
 
-    <section id="availability">
-      <div class="container availability-layout">
-        <form class="reveal" id="inquiry-form">
-          <div class="section-eyebrow">Booking inquiry</div>
-          <h2 style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: .12em; margin: 6px 0 8px;">
-            Tell us about your glow.
-          </h2>
-          <p style="margin-top: 0; margin-bottom: 18px; color: var(--text-muted); max-width: 36rem;">
-            Select any future date, choose your service and let us know the style you’d like. We’ll review your details and reply with availability and next steps.
-          </p>
+      <div class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">📸</div>
+          <div class="card-meta">
+            <p class="card-tag">Campaigns &amp; content</p>
+            <h3 class="card-name">Editorial &amp; Shoots</h3>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <p class="card-desc">Fashion-forward or clean-beauty looks for campaigns, creative shoots, and polished content days. We collaborate closely with photographers and stylists to achieve your exact vision.</p>
+          <div class="card-photos">
+            <img src="style-editorial.jpg" alt="Editorial" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">📸</div>
+            <div class="card-photo-ph">📸</div>
+          </div>
+        </div></div>
+      </div>
 
-          <div class="form-grid">
+      <div class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">🎭</div>
+          <div class="card-meta">
+            <p class="card-tag">Bold &amp; dramatic</p>
+            <h3 class="card-name">Extreme Makeup</h3>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <p class="card-desc">Bold, high-impact looks with stronger colour, sharper detail, and a more dramatic finish. For statement moments, themed events, performances, or avant-garde editorial.</p>
+          <div class="card-photos">
+            <img src="style-extreme.jpg" alt="Extreme makeup" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">🎭</div>
+            <div class="card-photo-ph">🎭</div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">🌿</div>
+          <div class="card-meta">
+            <p class="card-tag">Everyday luminosity</p>
+            <h3 class="card-name">Casual Glam</h3>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <p class="card-desc">Light, natural makeup for everyday plans, dinners, or events when you want to look refreshed without feeling overdone. A skin-first approach, beautifully effortless.</p>
+          <div class="card-photos">
+            <img src="style-casual.jpg" alt="Casual glam" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">🌿</div>
+            <div class="card-photo-ph">🌿</div>
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section" data-section-dot>
+    <p class="sec-label reveal">The process</p>
+    <h2 class="sec-title reveal"><em>How</em> we work together</h2>
+    <p class="sec-intro reveal">Every booking starts with a simple inquiry — you choose your date, your look, and whether you'd like us at your door or ours.</p>
+    <div class="steps-row">
+      <div class="step-card reveal">
+        <p class="step-num">01</p>
+        <h3 class="step-title">Send your inquiry</h3>
+        <p class="step-body">Fill in the form with your date, service, and preferred location. Tell us the vibe you're after.</p>
+      </div>
+      <div class="step-card reveal">
+        <p class="step-num">02</p>
+        <h3 class="step-title">We confirm</h3>
+        <p class="step-body">We'll reply with availability, timing, and a clear plan — studio appointment or on-location visit.</p>
+      </div>
+      <div class="step-card reveal">
+        <p class="step-num">03</p>
+        <h3 class="step-title">Your glow moment</h3>
+        <p class="step-body">Arrive calm, prepared, and ready. You leave luminous — every time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY -->
+  <section id="availability" class="section" data-section-dot>
+    <div class="form-wrap">
+      <div>
+        <p class="sec-label reveal">Book your date</p>
+        <h2 class="form-aside-title reveal">Tell us about <em>your glow.</em></h2>
+        <p class="form-aside-body reveal">Select a date, choose your service, and let us know the look you're going for. We'll reply with availability and next steps.</p>
+        <ul class="aside-list reveal">
+          <li>Studio appointments in Paphos</li>
+          <li>On-location — we travel to you</li>
+          <li>Group bookings for bridal parties</li>
+          <li>Bridal trials available on request</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="inquiry-form">
+          <div class="field-row">
             <div class="field">
-              <label for="name">Full name</label>
-              <input id="name" name="name" placeholder="Your full name" required />
+              <label for="f-name">Full name</label>
+              <input id="f-name" type="text" placeholder="Your name" />
             </div>
             <div class="field">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" placeholder="+357 ..." required />
+              <label for="f-phone">Phone</label>
+              <input id="f-phone" type="tel" placeholder="+357 …" />
             </div>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" type="email" placeholder="you@example.com" />
+          </div>
+          <div class="field-row">
             <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required />
-            </div>
-            <div class="field">
-              <label for="service">Makeup type</label>
-              <select id="service" name="service" required>
+              <label for="f-service">Makeup type</label>
+              <select id="f-service">
                 <option value="">Choose a service</option>
                 <option>Bridal</option>
                 <option>Bridesmaid</option>
                 <option>Prom</option>
-                <option>Casual</option>
+                <option>Casual glam</option>
                 <option>Editorial</option>
                 <option>Extreme makeup</option>
               </select>
             </div>
             <div class="field">
-              <label for="calendar-date">Preferred date</label>
-              <input id="calendar-date" name="calendar-date" type="date" required />
-            </div>
-            <div class="field">
-              <label for="session-type">Session type</label>
-              <select id="session-type" name="sessionType" required>
-                <option value="">Studio or on-location?</option>
-                <option>Studio appointment</option>
-                <option>On-location (we travel to you)</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="location">Location / venue</label>
-              <input id="location" name="location" placeholder="Studio or home/hotel/venue address" />
-            </div>
-            <div class="field">
-              <label for="people">Number of faces</label>
-              <input id="people" name="people" type="number" min="1" max="10" placeholder="e.g. 1 bride + 2 bridesmaids" />
-            </div>
-            <div class="field full">
-              <label for="notes">Notes</label>
-              <textarea id="notes" name="notes" placeholder="Event type, ready-by time, inspiration, skin concerns, anything we should know."></textarea>
+              <label for="f-date">Preferred date</label>
+              <input id="f-date" type="date" />
             </div>
           </div>
-
-          <div class="form-footer">
-            <p id="form-message" aria-live="polite"></p>
-            <p>Demo only: this button shows what will be sent once the form is connected to a Google Sheet or booking workflow.</p>
-            <button class="btn btn-primary" type="submit">Submit inquiry</button>
+          <div class="field">
+            <label for="f-type">Session type</label>
+            <select id="f-type">
+              <option value="">Studio or on-location?</option>
+              <option>Studio appointment</option>
+              <option>On-location (we travel to you)</option>
+            </select>
           </div>
-        </form>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-location">Location / venue</label>
+              <input id="f-location" type="text" placeholder="City, hotel, home …" />
+            </div>
+            <div class="field">
+              <label for="f-faces">Number of faces</label>
+              <input id="f-faces" type="number" min="1" max="30" placeholder="1" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-notes">Notes</label>
+            <textarea id="f-notes" placeholder="Event type, preferred ready-by time, any special requests …"></textarea>
+          </div>
+          <p class="form-note">Demo only — connect to Google Sheets or a booking workflow to go live.</p>
+          <button class="btn btn-primary" onclick="submitInquiry(event)" style="width:100%;text-align:center;">Submit inquiry</button>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" data-section-dot>
+    <p class="sec-label">Contact</p>
+    <h2 class="sec-title reveal">Ready for your <em>glow moment?</em></h2>
+    <p class="sec-intro reveal">Share your date, whether you prefer studio or on-location, and the occasion. We'll confirm availability and make the getting-ready feel calm and a little luxurious.</p>
+    <div class="chip-row reveal">
+      <a href="#availability" class="chip">📅 Book an inquiry</a>
+      <a href="mailto:hello@glowmakeupcyprus.com" class="chip">✉️ Email us</a>
+      <a href="tel:+35700000000" class="chip">📞 Call the studio</a>
+      <a href="https://instagram.com/" class="chip" target="_blank" rel="noopener">📷 Instagram</a>
+    </div>
+  </section>
 
   <footer>
-    <div class="container">
-      Glow Makeup Studio • Studio and on-location makeup for bridal, casual, prom, bridesmaid, editorial and extreme makeup.
-    </div>
+    Glow Makeup Studio &nbsp;•&nbsp; Studio &amp; on-location makeup · Paphos, Cyprus
   </footer>
 
-  <script>
-    const calendarInput = document.getElementById("calendar-date");
-    const form = document.getElementById("inquiry-form");
-    const message = document.getElementById("form-message");
+</div><!-- end .page-inner -->
 
-    if (calendarInput) {
-      const today = new Date();
-      const toISO = (d) => d.toISOString().split("T")[0];
-      calendarInput.min = toISO(today);
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   SPLASH
+═══════════════════════════════════════════════════════════════ */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('splash').classList.add('gone'), 2200);
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════════════════════ */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+}, { threshold: 0.11 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ═══════════════════════════════════════════════════════════════
+   SERVICE CARD TOGGLE
+═══════════════════════════════════════════════════════════════ */
+function toggleCard(card) {
+  const open = card.classList.contains('open');
+  document.querySelectorAll('.service-card.open').forEach(c => c.classList.remove('open'));
+  if (!open) card.classList.add('open');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORM DEMO
+═══════════════════════════════════════════════════════════════ */
+function submitInquiry(e) {
+  e.preventDefault();
+  const n = document.getElementById('f-name').value.trim();
+  alert(n ? `Thank you, ${n}! We'll be in touch shortly.` : 'Thank you! Your inquiry has been received.');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTERFLY ANIMATION
+   ─────────────────────────────────────────────────────────────
+   Phase 0 — HERO FLOAT  (no scroll yet)
+     • butterfly uses the logo PNG, small, floats gently around
+       the hero centre with a soft figure-8 / Lissajous path
+   Phase 1 — TWIRL  (first scroll detected)
+     • butterfly spins ~720° while drifting toward left column
+   Phase 2 — TRAIL  (scroll mode)
+     • butterfly locked to left column, head pointing downward
+     • follows page scroll progress top→bottom of viewport column
+     • leaves small dotted trail; large dot at each section
+     • scrolling UP erases dots as butterfly passes back over them
+═══════════════════════════════════════════════════════════════ */
+(() => {
+  const bf        = document.getElementById('bf-img');
+  const canvas    = document.getElementById('bf-canvas');
+  const trailGrp  = document.getElementById('trail');
+
+  /* ── constants ─────────────────────────────────────────── */
+  const BF_W        = 56;   // butterfly display width (px)
+  const TRAIL_X     = 26;   // x centre of trail column in SVG
+  const SMALL_R     = 4;
+  const LARGE_R     = 13;
+  const DOT_STEP    = 36;   // px between small dots
+  const LERP_SLOW   = 0.035;
+  const LERP_FAST   = 0.12;
+
+  /* ── state ──────────────────────────────────────────────── */
+  let phase       = 0;   // 0=float, 1=twirl, 2=trail
+  let bfX         = window.innerWidth / 2;
+  let bfY         = window.innerHeight / 2;
+  let bfRot       = 0;   // degrees
+  let targetX     = bfX;
+  let targetY     = bfY;
+  let targetRot   = 0;
+  let twirl       = 0;   // accumulated rotation during twirl
+  let twirlDone   = false;
+  let floatT      = 0;
+  let scrollY_px  = 0;   // smoothed scroll progress (0..1) mapped to vh
+  let rawProgress = 0;
+  let lastProgress= 0;
+
+  /* ── dot records: {y (in SVG/viewport), large, el, ringEl} ── */
+  const dots = [];
+  let lastDotY = -9999;
+
+  /* ── section landmark Y-values (in page scroll fraction 0..1) */
+  let sectionFracs = [];
+
+  function computeSections() {
+    const totalH = document.documentElement.scrollHeight - window.innerHeight;
+    sectionFracs = [];
+    document.querySelectorAll('[data-section-dot]').forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      const pageY = rect.top + window.scrollY;
+      sectionFracs.push(totalH > 0 ? pageY / totalH : 0);
+    });
+  }
+
+  window.addEventListener('resize', () => { computeSections(); trailGrp.innerHTML = ''; dots.length = 0; lastDotY = -9999; }, { passive:true });
+  computeSections();
+
+  /* ── set butterfly CSS position ─────────────────────────── */
+  function placeBf(x, y, rot, opacity) {
+    bf.style.left   = (x - BF_W / 2) + 'px';
+    bf.style.top    = (y - BF_W / 2) + 'px';
+    bf.style.width  = BF_W + 'px';
+    bf.style.opacity = opacity ?? 1;
+    bf.style.transform = `rotate(${rot}deg)`;
+  }
+
+  /* The logo image naturally points up. For trail mode we need
+     it to point downward → rotate base 180deg + any extra. */
+  function trailRot(extra) { return 180 + (extra || 0); }
+
+  /* ── add a dot to SVG trail ─────────────────────────────── */
+  function addDot(y, large) {
+    const ns = 'http://www.w3.org/2000/svg';
+    let ringEl = null;
+    if (large) {
+      ringEl = document.createElementNS(ns, 'circle');
+      ringEl.setAttribute('cx', TRAIL_X);
+      ringEl.setAttribute('cy', y);
+      ringEl.setAttribute('r',  LARGE_R + 8);
+      ringEl.setAttribute('fill',   'none');
+      ringEl.setAttribute('stroke', '#e8b4bc');
+      ringEl.setAttribute('stroke-width', '1.2');
+      ringEl.setAttribute('opacity', '0.4');
+      trailGrp.appendChild(ringEl);
     }
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', TRAIL_X);
+    c.setAttribute('cy', y);
+    c.setAttribute('r',  large ? LARGE_R : SMALL_R);
+    c.setAttribute('fill',   large ? '#e8b4bc' : 'none');
+    c.setAttribute('stroke', large ? 'none' : '#c4788a');
+    c.setAttribute('stroke-dasharray', large ? '0' : '2 4');
+    c.setAttribute('stroke-width', large ? '0' : '1.4');
+    c.setAttribute('opacity', large ? '0.72' : '0.5');
+    trailGrp.appendChild(c);
+    dots.push({ y, large, el: c, ringEl });
+  }
 
-    if (form) {
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const payload = Object.fromEntries(new FormData(form).entries());
-        if (!payload["calendar-date"]) {
-          message.textContent = "Please choose a preferred date first.";
-          message.style.color = "#c64c77";
-          return;
-        }
-        message.style.color = "";
-        message.textContent =
-          `Demo only — ready to send to Google Sheets: ${payload.name} requested ${payload.service} on ${payload["calendar-date"]} as a ${payload.sessionType} at ${payload.location || "no location specified"}.`;
-        console.log(payload);
-      });
+  /* ── remove dots above butterfly (scroll up) ────────────── */
+  function eraseDots(aboveY) {
+    for (let i = dots.length - 1; i >= 0; i--) {
+      if (dots[i].y > aboveY) {
+        dots[i].el.remove();
+        if (dots[i].ringEl) dots[i].ringEl.remove();
+        dots.splice(i, 1);
+      }
     }
+    if (dots.length === 0) lastDotY = -9999;
+    else lastDotY = Math.max(...dots.map(d => d.y));
+  }
 
-    const galleryImages = Array.from(document.querySelectorAll(".services-gallery__image"));
-    const galleryDots = Array.from(document.querySelectorAll(".services-gallery__dot"));
-    const serviceCards = Array.from(document.querySelectorAll(".service-card--linked"));
-    const prevBtn = document.querySelector("[data-gallery-prev]");
-    const nextBtn = document.querySelector("[data-gallery-next]");
+  /* ── maybe paint a new dot below current position ───────── */
+  function maybeAddDot(y) {
+    if (y <= lastDotY) return;  // don't add if going backward
+    // Check section landmark
+    const totalH = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFrac = totalH > 0 ? window.scrollY / totalH : 0;
+    for (const sf of sectionFracs) {
+      const sy = sf * window.innerHeight;
+      if (Math.abs(y - sy) < 14 && !dots.find(d => d.large && Math.abs(d.y - sy) < 20)) {
+        addDot(sy, true);
+        lastDotY = Math.max(lastDotY, sy);
+        return;
+      }
+    }
+    // Small dot
+    if (y - lastDotY >= DOT_STEP) {
+      addDot(y, false);
+      lastDotY = y;
+    }
+  }
 
-    if (galleryImages.length && galleryDots.length && serviceCards.length) {
-      const order = ["bridal", "bridesmaid", "prom", "editorial", "extreme", "casual"];
-      let currentIndex = 0;
-      let wheelLock = false;
-      let touchStartY = 0;
+  /* ── scroll listener ────────────────────────────────────── */
+  window.addEventListener('scroll', () => {
+    const totalH = document.documentElement.scrollHeight - window.innerHeight;
+    rawProgress = totalH > 0 ? Math.min(1, window.scrollY / totalH) : 0;
+    if (phase === 0) {
+      // First scroll → trigger twirl
+      phase = 1;
+      twirl = 0;
+      twirlDone = false;
+    }
+  }, { passive:true });
 
-      const setActiveStyle = (styleKey) => {
-        galleryImages.forEach(img => img.classList.toggle("is-active", img.dataset.style === styleKey));
-        galleryDots.forEach(dot => dot.classList.toggle("is-active", dot.dataset.style === styleKey));
-        serviceCards.forEach(card => card.classList.toggle("is-active", card.dataset.style === styleKey));
-      };
+  /* ── RAF loop ───────────────────────────────────────────── */
+  let lastTs = 0;
+  function tick(ts) {
+    const dt = Math.min(ts - lastTs, 50); // cap at 50ms
+    lastTs = ts;
 
-      const goToIndex = (index) => {
-        currentIndex = (index + order.length) % order.length;
-        setActiveStyle(order[currentIndex]);
-      };
+    if (phase === 0) {
+      /* ── FLOAT: gentle figure-8 around hero centre ──────── */
+      floatT += dt * 0.0007;
+      const cx  = window.innerWidth  / 2;
+      const cy  = window.innerHeight / 2 - 20;
+      const amp = Math.min(window.innerWidth * 0.12, 90);
+      targetX = cx + Math.sin(floatT)       * amp;
+      targetY = cy + Math.sin(floatT * 2)   * (amp * 0.48);
+      bfX += (targetX - bfX) * 0.06;
+      bfY += (targetY - bfY) * 0.06;
+      // gentle rock
+      const rock = Math.sin(floatT * 1.8) * 12;
+      placeBf(bfX, bfY, rock, 1);
 
-      const next = () => goToIndex(currentIndex + 1);
-      const prev = () => goToIndex(currentIndex - 1);
+    } else if (phase === 1) {
+      /* ── TWIRL: spin ~720° while flying to left column ──── */
+      const speed = dt * 0.72;   // degrees per ms
+      twirl += speed;
+      bfRot += speed;
 
-      galleryDots.forEach((dot, idx) => dot.addEventListener("click", () => goToIndex(idx)));
-      prevBtn?.addEventListener("click", prev);
-      nextBtn?.addEventListener("click", next);
+      // Drift toward left column centre top
+      const destX = 26;
+      const destY = 80;
+      bfX += (destX - bfX) * 0.032;
+      bfY += (destY - bfY) * 0.032;
+      placeBf(bfX, bfY, trailRot(bfRot), 1);
 
-      serviceCards.forEach((card) => {
-        card.addEventListener("click", () => {
-          const idx = order.indexOf(card.dataset.style);
-          if (idx !== -1) goToIndex(idx);
-        });
-      });
-
-      const frame = document.querySelector(".services-gallery__frame");
-      if (frame) {
-        frame.addEventListener("wheel", (e) => {
-          if (wheelLock) return;
-          if (Math.abs(e.deltaY) < 10) return;
-          wheelLock = true;
-          e.preventDefault();
-          if (e.deltaY > 0) next();
-          else prev();
-          setTimeout(() => { wheelLock = false; }, 220);
-        }, { passive: false });
-
-        frame.addEventListener("touchstart", (e) => {
-          touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        frame.addEventListener("touchend", (e) => {
-          const endY = e.changedTouches[0].clientY;
-          const diff = touchStartY - endY;
-          if (Math.abs(diff) > 30) {
-            if (diff > 0) next();
-            else prev();
-          }
-        }, { passive: true });
+      // When close enough and spun ≥ 720°, switch to trail
+      if (twirl >= 720 && Math.abs(bfX - destX) < 30) {
+        phase = 2;
+        bfRot = 0;
       }
 
-      setActiveStyle(order[0]);
+    } else {
+      /* ── TRAIL: map scroll to vertical position ──────────── */
+      const targetProgress = rawProgress;
+      const going  = targetProgress >= lastProgress;
+      lastProgress += (targetProgress - lastProgress) * LERP_SLOW;
+
+      const vpH    = window.innerHeight;
+      const trailY = lastProgress * (vpH - 80) + 40;
+
+      bfX  += (TRAIL_X - bfX)  * LERP_FAST;
+      bfY  += (trailY  - bfY)  * LERP_FAST;
+
+      // Subtle sway on left column
+      const sway = Math.sin(ts * 0.001) * 6;
+      placeBf(bfX + sway, bfY, trailRot(sway * 1.2), 1);
+
+      if (going) {
+        maybeAddDot(bfY);
+      } else {
+        // Erasing: remove dots above butterfly
+        eraseDots(bfY - 10);
+      }
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      },
-      { threshold: 0.14 }
-    );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-  </script>
+    requestAnimationFrame(tick);
+  }
+
+  /* ── size canvas to viewport height ─────────────────────── */
+  function sizeCanvas() {
+    canvas.setAttribute('width',  52);
+    canvas.setAttribute('height', window.innerHeight);
+    canvas.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', sizeCanvas, { passive:true });
+  sizeCanvas();
+
+  /* start hidden until splash done */
+  bf.style.opacity = '0';
+  setTimeout(() => { bf.style.transition = 'opacity .6s'; bf.style.opacity = '1'; }, 2400);
+
+  requestAnimationFrame(ts => { lastTs = ts; requestAnimationFrame(tick); });
+})();
+</script>
 </body>
 </html>
