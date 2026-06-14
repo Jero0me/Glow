@@ -3,38 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow Makeup Studio • Studio & On-Location Makeup Artist</title>
   <meta name="description" content="Glow Makeup Studio offers studio and on-location bridal, casual, prom, bridesmaid, editorial and extreme makeup looks." />
+  <title>Glow Makeup Studio • Studio & On-Location Makeup Artist</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── DESIGN TOKENS (original site palette) ──────────────── */
+    /* ── TOKENS ─────────────────────────────────────────────── */
     :root {
-      --bg-from:        #fbe4e9;
-      --bg-to:          #f3c3d2;
-      --bg-inner:       #ffeef4;
-      --surface:        rgba(255,255,255,0.90);
-      --surface-soft:   rgba(255,245,249,0.90);
-      --border-soft:    rgba(255,255,255,0.80);
-      --border-strong:  rgba(170,109,94,0.45);
-      --text-main:      #4d2b30;
-      --text-muted:     #8e5c66;
-      --text-soft:      #c48ba0;
-      --gold:           #f1c46f;
-      --gold-deep:      #d9a548;
-      --rose:           #e3779b;
-      --berry:          #c94a7d;
-      --shadow-soft:    0 24px 60px rgba(170,74,104,0.18);
-      --shadow-sub:     0 12px 30px rgba(97,42,63,0.15);
-      --r-lg:           34px;
-      --r-pill:         999px;
-      --ff-serif:       "Cormorant Garamond", Georgia, serif;
-      --ff-body:        "Manrope", system-ui, sans-serif;
-      --ease:           cubic-bezier(.16,1,.3,1);
-      --t:              220ms cubic-bezier(.16,1,.3,1);
+      --bg-from:       #fbe4e9;
+      --bg-to:         #f3c3d2;
+      --bg-inner:      #ffeef4;
+      --surface:       rgba(255,255,255,0.90);
+      --surface-soft:  rgba(255,245,249,0.90);
+      --border-soft:   rgba(255,255,255,0.80);
+      --border-strong: rgba(170,109,94,0.45);
+      --text-main:     #4d2b30;
+      --text-muted:    #8e5c66;
+      --text-soft:     #c48ba0;
+      --gold:          #f1c46f;
+      --gold-deep:     #d9a548;
+      --rose:          #e3779b;
+      --berry:         #c94a7d;
+      --shadow-soft:   0 24px 60px rgba(170,74,104,0.18);
+      --shadow-sub:    0 12px 30px rgba(97,42,63,0.15);
+      --r-pill:        999px;
+      --ff-serif:      "Cormorant Garamond", Georgia, serif;
+      --ff-body:       "Manrope", system-ui, sans-serif;
+      --ease:          cubic-bezier(.16,1,.3,1);
+      --t:             220ms cubic-bezier(.16,1,.3,1);
+      --trail-w:       52px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -56,244 +56,193 @@
     a   { color:inherit; text-decoration:none; }
     button, input, select, textarea { font:inherit; }
 
-    .container {
-      width: min(1160px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    /* ─── SPLASH ──────────────────────────────────────────────── */
+    /* ── SPLASH ─────────────────────────────────────────────── */
     #splash {
-      position: fixed; inset: 0; z-index: 10000;
+      position:fixed; inset:0; z-index:10000;
       background: linear-gradient(145deg, var(--bg-from), var(--bg-to));
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 20px;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:20px;
       transition: opacity .9s var(--ease), visibility .9s;
     }
     #splash.gone { opacity:0; visibility:hidden; pointer-events:none; }
-
     #splash-logo {
-      width: min(260px,70vw);
-      filter: drop-shadow(0 14px 44px rgba(196,74,125,0.32));
-      animation: splashIn 1.3s var(--ease) forwards;
+      width:min(260px,70vw);
+      filter:drop-shadow(0 14px 44px rgba(196,74,125,0.32));
+      animation:splashIn 1.3s var(--ease) forwards;
     }
     #splash-sub {
-      font-family: var(--ff-body);
-      font-size: 11px; letter-spacing: .22em;
-      text-transform: uppercase; color: var(--text-soft);
-      animation: fadeUp .6s 1s both;
+      font-size:11px; letter-spacing:.22em;
+      text-transform:uppercase; color:var(--text-soft);
+      animation:fadeUp .6s 1s both;
     }
     @keyframes splashIn {
-      0%   { opacity:0; transform:scale(.82) translateY(16px); }
-      65%  { opacity:1; transform:scale(1.05) translateY(0); }
-      100% { opacity:1; transform:scale(1)    translateY(0); }
+      0%  { opacity:0; transform:scale(.82) translateY(16px); }
+      65% { opacity:1; transform:scale(1.05) translateY(0); }
+      100%{ opacity:1; transform:scale(1) translateY(0); }
     }
     @keyframes fadeUp {
-      from { opacity:0; transform:translateY(10px); }
-      to   { opacity:1; transform:translateY(0); }
+      from{ opacity:0; transform:translateY(10px); }
+      to  { opacity:1; transform:translateY(0); }
     }
 
-    /* ─── BUTTERFLY LAYER ─────────────────────────────────────── */
-    /*  Full-viewport SVG so the butterfly can float anywhere in
-        phase 0 without being clipped, then settles to left column */
+    /* ── BUTTERFLY SVG LAYER ─────────────────────────────────── */
+    /* Full-viewport so butterfly can float anywhere in phase 0 */
     #bf-svg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 600;
-      overflow: visible;
+      position:fixed; top:0; left:0;
+      width:100vw; height:100vh;
+      pointer-events:none; z-index:600;
+      overflow:visible;
     }
 
-    /* ─── HEADER / NAV ────────────────────────────────────────── */
-    header {
-      position: sticky; top: 0; z-index: 400;
-      backdrop-filter: blur(20px);
-      background: linear-gradient(to bottom,
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position:sticky; top:0; z-index:400;
+      backdrop-filter:blur(20px);
+      background:linear-gradient(to bottom,
         rgba(255,245,249,0.96),
         rgba(255,245,249,0.80),
         transparent);
-      border-bottom: 1px solid rgba(255,255,255,0.4);
+      border-bottom:1px solid rgba(255,255,255,0.4);
+      display:flex; align-items:center;
+      justify-content:space-between; gap:1.2rem;
+      padding:0 clamp(20px,5vw,56px); height:62px;
     }
-    .nav {
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 1.2rem;
-      padding: 10px 0;
+    .nav-brand { display:flex; align-items:center; gap:10px; }
+    .nav-brand img {
+      width:44px; height:44px; object-fit:contain;
+      filter:drop-shadow(0 10px 24px rgba(171,88,94,0.5));
     }
-    .brand { display:flex; align-items:center; gap:10px; }
-    .brand img {
-      width:54px; height:54px; object-fit:contain;
-      filter: drop-shadow(0 10px 24px rgba(171,88,94,0.5));
-    }
-    .brand span {
-      font-weight:700; letter-spacing:.18em;
-      text-transform:uppercase; font-size:0.78rem;
-      color:var(--text-soft); white-space:nowrap;
+    .nav-brand span {
+      font-family:var(--ff-serif); font-weight:700;
+      font-size:1.15rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--text-soft);
+      white-space:nowrap;
     }
     .nav-links {
-      display:flex; align-items:center; gap:16px;
-      flex-wrap:wrap; font-size:clamp(.88rem,.8rem + .25vw,.96rem);
+      display:flex; align-items:center; gap:clamp(12px,2.4vw,28px);
+      list-style:none; flex-wrap:wrap;
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
     }
-    .nav-links a { color:var(--text-muted); letter-spacing:.1em; text-transform:uppercase; }
+    .nav-links a { color:var(--text-muted); letter-spacing:.1em; text-transform:uppercase; transition:color .2s; }
     .nav-links a:hover { color:var(--text-main); }
-
-    /* ─── BUTTONS ─────────────────────────────────────────────── */
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:0 20px; min-height:46px;
-      border-radius:var(--r-pill); border:1px solid transparent;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
-      letter-spacing:.08em; text-transform:uppercase;
-      cursor:pointer; transition:transform var(--t), box-shadow var(--t), background var(--t), border-color var(--t), color var(--t);
-    }
-    .btn:hover { transform:translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--rose));
-      color:#2a141b; box-shadow:var(--shadow-sub);
-      border-color:rgba(255,255,255,0.9);
-    }
-    .btn-primary:hover { background: linear-gradient(135deg, var(--gold-deep), var(--berry)); }
-    .btn-ghost {
-      background:rgba(255,255,255,0.12);
-      border-color:rgba(255,255,255,0.7);
-      color:var(--text-main);
-      backdrop-filter:blur(14px);
-    }
-
-    /* ─── HERO ────────────────────────────────────────────────── */
-    main section { padding:clamp(3.6rem,9vw,7.4rem) 0; }
-
-    .hero {
-      position:relative;
-      display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
-      gap:clamp(24px,6vw,68px);
-      align-items:center;
-    }
-
-    .tagline {
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 14px; border-radius:var(--r-pill);
-      background:rgba(255,255,255,0.4);
+    .nav-cta {
+      background:linear-gradient(135deg,var(--gold),var(--rose));
+      color:#2a141b !important; padding:8px 20px;
+      border-radius:var(--r-pill);
+      box-shadow:var(--shadow-sub);
       border:1px solid rgba(255,255,255,0.9);
-      color:var(--rose);
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
-      letter-spacing:.18em; text-transform:uppercase;
-      font-weight:700; margin-bottom:14px;
+      transition:background var(--t);
     }
-    .tagline-dot {
-      width:9px; height:9px; border-radius:999px;
-      background:radial-gradient(circle at 30% 0,#ffe9b8,#ff7b93);
-      box-shadow:0 0 0 6px rgba(255,255,255,0.6);
-    }
+    .nav-cta:hover { background:linear-gradient(135deg,var(--gold-deep),var(--berry)) !important; }
+    @media(max-width:600px){ .nav-links { display:none; } }
 
+    /* ── PAGE INNER — margin keeps content off butterfly lane ── */
+    .page-inner { margin-left:var(--trail-w); }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    #home {
+      min-height:92vh;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center;
+      padding:clamp(60px,10vh,120px) clamp(28px,6vw,80px);
+    }
+    .hero-eyebrow {
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
+      letter-spacing:.22em; text-transform:uppercase;
+      color:var(--rose); margin-bottom:18px;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .hero-eyebrow::before {
+      content:''; width:9px; height:9px; border-radius:50%;
+      background:radial-gradient(circle at 30% 0,#ffe9b8,#ff7b93);
+      box-shadow:0 0 0 5px rgba(255,255,255,0.55);
+    }
     h1 {
       font-family:var(--ff-serif);
       font-size:clamp(2.7rem,1.9rem + 3vw,4.8rem);
-      letter-spacing:.04em; text-transform:uppercase; margin:0 0 12px;
+      letter-spacing:.04em; font-weight:600;
+      color:var(--text-main); margin:0 0 18px;
+      max-width:760px;
     }
-    .hero-subline {
-      font-size:clamp(1.1rem,1rem + .6vw,1.45rem);
+    .hero-sub {
+      font-size:clamp(1rem,.9rem + .5vw,1.35rem);
       color:var(--text-muted); max-width:32rem;
+      line-height:1.7; margin:0 0 10px;
     }
     .hero-note {
-      margin-top:18px;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
       color:var(--text-soft); max-width:30rem;
+      line-height:1.72; margin:0 0 28px;
     }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
-    .hero-availability {
+    .hero-actions { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+    .hero-avail {
       display:flex; gap:10px; align-items:center;
-      margin-top:18px;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
+      margin-top:20px;
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
       color:var(--text-soft);
     }
     .dot-live {
-      width:9px; height:9px; border-radius:999px;
+      width:9px; height:9px; border-radius:50%;
       background:#5bd49c; box-shadow:0 0 0 5px rgba(91,212,156,.35);
-      animation: livePulse 2s infinite;
+      animation:livePulse 2s infinite;
     }
     @keyframes livePulse {
       0%,100%{box-shadow:0 0 0 5px rgba(91,212,156,.35)}
       50%    {box-shadow:0 0 0 9px rgba(91,212,156,.12)}
     }
 
-    /* Hero right panel */
-    .hero-panel {
-      position:relative; padding:20px; border-radius:40px;
-      background:
-        radial-gradient(circle at 0 0,rgba(255,255,255,.45),transparent 60%),
-        radial-gradient(circle at 100% 100%,rgba(255,255,255,.35),transparent 60%),
-        linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,240,244,.9));
-      box-shadow:var(--shadow-soft); border:1px solid var(--border-soft); overflow:hidden;
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:0 22px; min-height:48px;
+      border-radius:var(--r-pill); border:1px solid transparent;
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
+      letter-spacing:.09em; text-transform:uppercase;
+      cursor:pointer;
+      transition:transform var(--t), box-shadow var(--t), background var(--t), border-color var(--t);
     }
-    .hero-panel-bg {
-      position:absolute; inset:-40%;
-      background:
-        radial-gradient(circle at 0 0,rgba(255,216,145,.45),transparent 50%),
-        radial-gradient(circle at 100% 0,rgba(255,146,179,.42),transparent 52%),
-        radial-gradient(circle at 50% 100%,rgba(255,179,215,.38),transparent 50%);
-      opacity:.9; pointer-events:none;
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary {
+      background:linear-gradient(135deg,var(--gold),var(--rose));
+      color:#2a141b; box-shadow:var(--shadow-sub);
+      border-color:rgba(255,255,255,0.9);
     }
-    .hero-card-inner { position:relative; display:grid; grid-template-rows:auto auto; gap:16px; z-index:1; }
-    .hero-logo-frame {
-      border-radius:28px; border:1px solid rgba(255,255,255,.9);
-      overflow:hidden; background:var(--bg-inner); padding:18px;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .hero-logo-frame img { width:100%; height:auto; object-fit:contain; }
-    .hero-badge-card {
-      position:absolute; top:22px; left:22px;
-      padding:8px 12px; border-radius:var(--r-pill);
-      background:rgba(43,17,25,.84); color:#ffe9f5;
-      font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
-      display:inline-flex; align-items:center; gap:6px;
-    }
-    .hero-badge-card span { width:6px;height:6px;border-radius:999px;background:#ffe083; }
-    .hero-floating {
-      display:grid; gap:10px; padding:16px 18px; border-radius:22px;
-      background:rgba(43,17,25,.86); color:#ffe9f5;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
-    }
-    .hero-floating strong {
-      font-family:var(--ff-serif); letter-spacing:.08em;
-      text-transform:uppercase; font-size:.82rem;
-    }
-    .pill-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
-    .pill {
-      padding:6px 11px; border-radius:var(--r-pill);
-      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.25);
-      font-size:.8rem;
+    .btn-primary:hover { background:linear-gradient(135deg,var(--gold-deep),var(--berry)); }
+    .btn-ghost {
+      background:rgba(255,255,255,0.12);
+      border-color:rgba(255,255,255,0.7);
+      color:var(--text-main); backdrop-filter:blur(14px);
     }
 
-    /* ─── SERVICES SECTION ────────────────────────────────────── */
-    .section-eyebrow {
-      display:inline-flex; padding:6px 14px; border-radius:var(--r-pill);
-      background:rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.7);
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
+    /* ── SHARED SECTION ─────────────────────────────────────── */
+    .section { padding:clamp(64px,9vw,110px) clamp(28px,6vw,80px); scroll-margin-top:62px; }
+
+    .sec-label {
+      display:inline-flex; padding:6px 14px;
+      border-radius:var(--r-pill);
+      background:rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.7);
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
       letter-spacing:.16em; text-transform:uppercase;
-      color:var(--rose); margin-bottom:10px;
+      color:var(--rose); margin-bottom:12px;
     }
-    .section-heading { margin-bottom:28px; }
-    .section-heading h2 {
+    .sec-title {
       font-family:var(--ff-serif);
       font-size:clamp(1.9rem,1.4rem + 2vw,3rem);
-      text-transform:uppercase; letter-spacing:.12em; margin:0 0 6px;
+      text-transform:uppercase; letter-spacing:.12em;
+      color:var(--text-main); margin:0 0 8px;
     }
-    .section-heading p { margin:0; color:var(--text-muted); max-width:34rem; }
+    .sec-intro { margin:0; color:var(--text-muted); max-width:34rem; }
 
-    .services-layout {
+    /* ── SERVICES ────────────────────────────────────────────── */
+    .services-grid {
       display:grid;
-      grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);
-      gap:34px; align-items:start;
+      grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));
+      gap:16px; margin-top:32px;
     }
-
-    /* Expandable service cards */
-    .service-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
-
     .service-card {
-      border-radius:24px; padding:18px 18px 16px;
+      border-radius:22px; padding:18px 18px 16px;
       background:var(--surface); border:1px solid var(--border-soft);
       box-shadow:var(--shadow-sub); cursor:pointer;
       transition:transform var(--t), box-shadow var(--t), border-color var(--t), background var(--t);
@@ -302,43 +251,52 @@
     .service-card.open {
       border-color:rgba(241,196,111,.9);
       box-shadow:0 18px 40px rgba(171,88,94,.25);
-      background:rgba(255,255,255,.98);
-      transform:translateY(-4px);
+      background:rgba(255,255,255,.98); transform:translateY(-4px);
     }
-
-    .card-label { font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:var(--text-soft); margin-bottom:4px; }
-    .card-header { display:flex; align-items:center; justify-content:space-between; }
-    .card-header h3 { font-family:var(--ff-serif); font-size:1.5rem; margin:0 0 6px; }
-
+    .card-header {
+      display:flex; align-items:center; gap:13px;
+      user-select:none;
+    }
+    .card-icon {
+      width:42px; height:42px; border-radius:50%;
+      background:var(--bg-inner);
+      display:grid; place-items:center;
+      font-size:19px; flex-shrink:0;
+      transition:background var(--t);
+    }
+    .service-card.open .card-icon { background:rgba(241,196,111,0.35); }
+    .card-meta { flex:1; }
+    .card-tag {
+      font-size:.72rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--text-soft); margin-bottom:3px;
+    }
+    .card-name {
+      font-family:var(--ff-serif); font-size:1.45rem;
+      font-weight:600; color:var(--text-main); line-height:1.15;
+    }
     .card-chevron {
       width:26px; height:26px; border-radius:50%;
       border:1.5px solid rgba(170,109,94,.35);
       display:grid; place-items:center; flex-shrink:0;
       color:var(--text-soft);
-      transition:transform .38s var(--ease), background .28s, border-color .28s;
+      transition:transform .38s var(--ease), background var(--t), border-color var(--t);
     }
     .service-card.open .card-chevron {
       transform:rotate(180deg);
       background:var(--rose); border-color:var(--rose); color:#fff;
     }
-
-    .card-short { margin:0; font-size:clamp(.88rem,.8rem + .25vw,.96rem); color:var(--text-muted); }
-
-    /* Expand body */
+    .card-short { margin:6px 0 0; font-size:clamp(.82rem,.76rem + .2vw,.9rem); color:var(--text-muted); }
     .card-body { display:grid; grid-template-rows:0fr; transition:grid-template-rows .44s var(--ease); }
     .service-card.open .card-body { grid-template-rows:1fr; }
     .card-body-inner { overflow:hidden; }
-
     .card-desc {
-      padding-top:12px;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
+      padding-top:12px; font-size:clamp(.82rem,.76rem + .2vw,.9rem);
       line-height:1.72; color:var(--text-muted);
       border-top:1px solid rgba(255,255,255,.8); margin-top:10px;
     }
     .card-photos {
       display:flex; gap:9px; overflow-x:auto;
-      padding:14px 0 4px;
-      scroll-snap-type:x mandatory;
+      padding:14px 0 4px; scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch; scrollbar-width:none;
     }
     .card-photos::-webkit-scrollbar { display:none; }
@@ -353,141 +311,125 @@
       color:var(--rose); font-size:24px;
       border:1.5px dashed rgba(227,119,155,.4);
     }
-
     .services-note {
-      padding:18px 20px; border-radius:26px;
+      padding:18px 20px; border-radius:24px; margin-top:20px;
       background:var(--surface-soft); border:1px solid var(--border-strong);
       box-shadow:var(--shadow-sub);
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
-      color:var(--text-main); margin-top:18px;
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem); color:var(--text-main);
     }
     .services-note strong {
       font-family:var(--ff-serif); text-transform:uppercase;
       letter-spacing:.16em; font-size:.82rem;
     }
 
-    /* Gallery aside */
-    .services-gallery {
-      display:flex; flex-direction:column; gap:14px;
-      align-self:stretch; min-height:100%;
+    /* ── HOW IT WORKS ────────────────────────────────────────── */
+    .steps-row {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+      gap:22px; margin-top:32px;
     }
-    .gallery-frame {
-      position:relative; border-radius:28px; overflow:hidden;
-      background:
-        radial-gradient(circle at 0 0,rgba(255,255,255,.5),transparent 56%),
-        linear-gradient(145deg,#fce8f0,#f6c7d6);
-      border:1px solid var(--border-soft); box-shadow:var(--shadow-soft);
-      min-height:400px; flex:1;
-    }
-    .gallery-frame img {
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:center top;
-      opacity:0; transform:scale(1.02);
-      transition:opacity 420ms var(--ease), transform 420ms var(--ease);
-    }
-    .gallery-frame img.is-active { opacity:1; transform:scale(1); }
-
-    .gallery-controls {
-      display:flex; align-items:center; justify-content:center; gap:10px;
-    }
-    .gallery-arrow {
-      width:38px; height:38px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.9);
-      background:rgba(255,255,255,.8);
-      box-shadow:0 8px 22px rgba(160,80,110,.35);
-      cursor:pointer; font-size:1.2rem; color:var(--text-soft);
-      display:grid; place-items:center;
-    }
-    .gallery-dots { display:flex; align-items:center; gap:8px; }
-    .gallery-dot {
-      width:9px; height:9px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.9);
-      background:rgba(255,255,255,.7); cursor:pointer;
-    }
-    .gallery-dot.is-active {
-      background:linear-gradient(135deg,var(--gold),var(--rose));
-      box-shadow:0 0 0 4px rgba(241,196,111,.35);
-    }
-
-    /* ─── CONTACT ─────────────────────────────────────────────── */
-    .contact-section { text-align:center; }
-    .contact-section .section-heading { display:inline-block; text-align:center; }
-    .contact-section .section-eyebrow { display:inline-flex; }
-
-    /* ─── INQUIRY FORM ────────────────────────────────────────── */
-    form {
-      border-radius:var(--r-lg);
+    .step-card {
+      padding:26px 22px; border-radius:22px;
       background:var(--surface); border:1px solid var(--border-soft);
-      box-shadow:var(--shadow-sub); padding:20px 22px;
+      box-shadow:var(--shadow-sub);
     }
-    form h2 {
-      font-family:var(--ff-serif); text-transform:uppercase;
-      letter-spacing:.12em; margin:6px 0 8px;
-      font-size:clamp(1.9rem,1.4rem + 2vw,3rem);
+    .step-num {
+      font-family:var(--ff-serif); font-size:2.4rem;
+      font-weight:700; color:var(--rose); line-height:1; margin-bottom:10px;
     }
-    .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
-    .field { display:flex; flex-direction:column; gap:6px; }
-    .field.full { grid-column:1/-1; }
+    .step-title {
+      font-family:var(--ff-serif); font-size:1.3rem;
+      font-weight:600; color:var(--text-main); margin-bottom:7px;
+    }
+    .step-body { font-size:clamp(.82rem,.76rem + .2vw,.9rem); line-height:1.7; color:var(--text-muted); }
 
-    label {
-      font-size:.86rem; letter-spacing:.16em;
+    /* ── INQUIRY ─────────────────────────────────────────────── */
+    .form-wrap {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:48px; align-items:start;
+    }
+    @media(max-width:700px){ .form-wrap { grid-template-columns:1fr; } }
+    .form-aside-title {
+      font-family:var(--ff-serif);
+      font-size:clamp(1.6rem,1.2rem + 1.6vw,2.6rem);
+      font-weight:600; line-height:1.18;
+      color:var(--text-main); margin-bottom:16px;
+    }
+    .form-aside-title em { font-style:italic; color:var(--rose); }
+    .form-aside-body { font-size:clamp(.82rem,.76rem + .2vw,.9rem); line-height:1.78; color:var(--text-muted); margin-bottom:24px; }
+    .aside-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .aside-list li {
+      display:flex; align-items:center; gap:10px;
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem); color:var(--text-main);
+    }
+    .aside-list li::before {
+      content:''; width:7px; height:7px; border-radius:50%;
+      background:var(--rose); flex-shrink:0;
+    }
+    .inquiry-form { display:flex; flex-direction:column; gap:14px; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:480px){ .field-row { grid-template-columns:1fr; } }
+    .field { display:flex; flex-direction:column; gap:5px; }
+    .field label {
+      font-size:.78rem; letter-spacing:.16em;
       text-transform:uppercase; color:var(--text-soft);
     }
-    input, select, textarea {
-      width:100%; min-height:48px; border-radius:18px;
+    .field input, .field select, .field textarea {
+      width:100%; min-height:46px; border-radius:16px;
       border:1px solid rgba(255,255,255,.95);
       background:rgba(255,255,255,.98);
       padding:10px 14px; color:var(--text-main);
-      outline:none; font-size:.96rem;
-      transition:border-color var(--t), box-shadow var(--t), transform var(--t), background var(--t);
+      outline:none; font-size:.94rem;
+      transition:border-color var(--t), box-shadow var(--t), transform var(--t);
+      -webkit-appearance:none; appearance:none;
     }
-    input:focus, select:focus, textarea:focus {
+    .field input:focus, .field select:focus, .field textarea:focus {
       border-color:var(--gold-deep);
-      box-shadow:0 0 0 1px rgba(255,255,255,.98), 0 0 0 6px rgba(244,198,131,.4);
-      background:#fffdf8; transform:translateY(-1px);
+      box-shadow:0 0 0 1px rgba(255,255,255,.98), 0 0 0 5px rgba(244,198,131,.4);
+      transform:translateY(-1px);
     }
-    textarea { min-height:110px; resize:vertical; }
-
-    .form-footer {
-      display:flex; flex-direction:column; gap:10px;
-      margin-top:16px;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem); color:var(--text-soft);
+    .field textarea { min-height:100px; resize:vertical; }
+    .form-note {
+      font-size:.78rem; color:var(--text-soft);
+      padding:10px 14px; border-radius:12px;
+      background:rgba(255,255,255,.5); line-height:1.6;
     }
-    #form-message { min-height:1.2em; }
 
-    /* ─── FOOTER ──────────────────────────────────────────────── */
+    /* ── CONTACT ─────────────────────────────────────────────── */
+    #contact { text-align:center; }
+    #contact .sec-label { display:inline-flex; margin-bottom:12px; }
+    #contact .sec-title { margin:0 auto 12px; }
+    #contact .sec-intro { margin:0 auto 36px; }
+    .chip-row { display:flex; flex-wrap:wrap; gap:11px; justify-content:center; }
+    .chip {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 22px; border-radius:var(--r-pill);
+      background:rgba(255,255,255,.5); border:1px solid rgba(255,255,255,.8);
+      box-shadow:var(--shadow-sub);
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem); color:var(--text-main);
+      backdrop-filter:blur(12px);
+      transition:transform var(--t), box-shadow var(--t), background var(--t);
+    }
+    .chip:hover { transform:translateY(-2px); box-shadow:var(--shadow-soft); background:rgba(255,255,255,.8); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
     footer {
-      padding:24px 0 34px;
-      font-size:clamp(.88rem,.8rem + .25vw,.96rem);
-      color:var(--text-soft); text-align:center;
+      padding:28px 0 38px; text-align:center;
+      font-size:clamp(.82rem,.76rem + .2vw,.9rem);
+      color:var(--text-soft);
     }
 
-    /* ─── SCROLL REVEAL ───────────────────────────────────────── */
-    .reveal { opacity:0; transform:translateY(24px); transition:opacity 800ms ease, transform 800ms ease; }
+    /* ── SCROLL REVEAL ───────────────────────────────────────── */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
     .reveal.visible { opacity:1; transform:none; }
 
-    /* ─── RESPONSIVE ──────────────────────────────────────────── */
-    @media(max-width:980px) {
-      .hero, .services-layout { grid-template-columns:1fr; }
-      .hero { padding-top:2.4rem; }
+    @media(max-width:720px){
+      .hero-actions { flex-direction:column; align-items:center; }
     }
-    @media(max-width:900px) {
-      .service-list { grid-template-columns:1fr; }
-      .services-gallery { order:-1; }
-    }
-    @media(max-width:720px) {
-      .nav-links { gap:10px; justify-content:flex-end; }
-      .form-grid { grid-template-columns:1fr; }
-      .hero-actions { flex-direction:column; align-items:stretch; }
-      .brand span { display:none; }
-    }
-    @media(max-width:520px) { .nav { gap:.6rem; } }
-
-    @media(prefers-reduced-motion:reduce) {
-      *, *::before, *::after {
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
         scroll-behavior:auto !important;
         animation-duration:.01ms !important;
-        animation-iteration-count:1 !important;
         transition-duration:.01ms !important;
       }
     }
@@ -497,17 +439,11 @@
 
 <!-- ── SPLASH ────────────────────────────────────────────────── -->
 <div id="splash">
-  <!-- Correct filename: .png not .jpg -->
   <img id="splash-logo" src="Design_Pink-removebg-preview.png" alt="Glow Makeup Studio" />
   <p id="splash-sub">Studio &amp; on-location · Paphos, Cyprus</p>
 </div>
 
-<!-- ── BUTTERFLY SVG (inline, always visible, fixed left) ─────── -->
-<!--
-  The butterfly is drawn entirely in SVG — same gradient wing design
-  as the original site. The <g id="bf"> group is moved by JS.
-  No external image is used for the butterfly.
--->
+<!-- ── BUTTERFLY SVG (inline, full-viewport, fixed) ──────────── -->
 <svg id="bf-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
     <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -520,546 +456,444 @@
       <stop offset="40%"  stop-color="#ffcf8b"/>
       <stop offset="100%" stop-color="#f1c46f"/>
     </linearGradient>
-    <filter id="glow-filter">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
   </defs>
 
-  <!-- Trail dots group -->
   <g id="bf-trail"></g>
 
-  <!-- Butterfly body group — JS translates this -->
+  <!-- Butterfly — drawn at origin, JS moves it via translate+rotate -->
   <g id="bf">
-    <!-- Upper left wing -->
-    <path class="wlu"
-      d="M0,0 C-14,-22 -34,-28 -46,-18 C-58,-8 -54,6 -42,14 C-30,22 -16,16 0,0 Z"
-      fill="url(#wg)" opacity="0.93" />
-    <!-- Upper right wing -->
-    <path class="wru"
-      d="M0,0 C14,-22 34,-28 46,-18 C58,-8 54,6 42,14 C30,22 16,16 0,0 Z"
-      fill="url(#wg2)" opacity="0.93" />
-    <!-- Lower left wing -->
-    <path class="wll"
-      d="M0,0 C-10,10 -26,24 -28,36 C-30,46 -20,50 -10,44 C-2,38 2,20 0,0 Z"
-      fill="url(#wg)" opacity="0.80" />
-    <!-- Lower right wing -->
-    <path class="wrl"
-      d="M0,0 C10,10 26,24 28,36 C30,46 20,50 10,44 C2,38 -2,20 0,0 Z"
-      fill="url(#wg2)" opacity="0.80" />
-    <!-- Body -->
-    <ellipse cx="0" cy="18" rx="3.5" ry="20" fill="rgba(43,17,25,0.75)" />
-    <!-- Body shimmer -->
-    <ellipse cx="0" cy="18" rx="1.4" ry="18" fill="url(#wg)" opacity="0.35" />
-    <!-- Antennae -->
-    <line x1="0" y1="-2" x2="-11" y2="-22"
-      stroke="rgba(43,17,25,0.6)" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="-11" cy="-22" r="2.8" fill="#f1c46f" opacity="0.9"/>
-    <line x1="0" y1="-2" x2="11" y2="-22"
-      stroke="rgba(43,17,25,0.6)" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="11" cy="-22" r="2.8" fill="#f1c46f" opacity="0.9"/>
-    <!-- Wing shimmer dots -->
-    <circle cx="-26" cy="-5" r="3.5" fill="rgba(255,255,255,0.45)"/>
-    <circle cx="26"  cy="-5" r="3.5" fill="rgba(255,255,255,0.45)"/>
-    <circle cx="-15" cy="26" r="2.5" fill="rgba(255,255,255,0.35)"/>
-    <circle cx="15"  cy="26" r="2.5" fill="rgba(255,255,255,0.35)"/>
+    <path class="wlu" d="M0,0 C-8,-13 -20,-16 -28,-11 C-36,-6 -34,3 -26,8 C-18,13 -9,9 0,0 Z"  fill="url(#wg)"  opacity="0.93"/>
+    <path class="wru" d="M0,0 C8,-13 20,-16 28,-11 C36,-6 34,3 26,8 C18,13 9,9 0,0 Z"    fill="url(#wg2)" opacity="0.93"/>
+    <path class="wll" d="M0,0 C-6,6 -15,14 -16,22 C-17,28 -11,31 -5,27 C-1,24 1,12 0,0 Z" fill="url(#wg)"  opacity="0.80"/>
+    <path class="wrl" d="M0,0 C6,6 15,14 16,22 C17,28 11,31 5,27 C1,24 -1,12 0,0 Z"   fill="url(#wg2)" opacity="0.80"/>
+    <ellipse cx="0" cy="11" rx="2.2" ry="13" fill="rgba(43,17,25,0.75)"/>
+    <ellipse cx="0" cy="11" rx="0.9" ry="11" fill="url(#wg)" opacity="0.35"/>
+    <line x1="0" y1="-1" x2="-7" y2="-14" stroke="rgba(43,17,25,0.6)" stroke-width="1" stroke-linecap="round"/>
+    <circle cx="-7" cy="-14" r="1.8" fill="#f1c46f" opacity="0.9"/>
+    <line x1="0" y1="-1" x2="7" y2="-14" stroke="rgba(43,17,25,0.6)" stroke-width="1" stroke-linecap="round"/>
+    <circle cx="7" cy="-14" r="1.8" fill="#f1c46f" opacity="0.9"/>
+    <circle cx="-16" cy="-3" r="2"   fill="rgba(255,255,255,0.45)"/>
+    <circle cx="16"  cy="-3" r="2"   fill="rgba(255,255,255,0.45)"/>
+    <circle cx="-9"  cy="16" r="1.5" fill="rgba(255,255,255,0.35)"/>
+    <circle cx="9"   cy="16" r="1.5" fill="rgba(255,255,255,0.35)"/>
   </g>
 </svg>
 
-<!-- ── HEADER ────────────────────────────────────────────────── -->
-<header>
-  <div class="container nav">
-    <a href="#home" class="brand">
-      <img src="Design_Pink-removebg-preview.png" alt="Glow Makeup Studio logo" loading="eager" />
-      <span>Glow Makeup Studio</span>
-    </a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#services">Services</a>
-      <a href="#availability">Inquiry</a>
-      <a href="#contact">Contact</a>
-      <a class="btn btn-primary" href="#availability">Book inquiry</a>
-    </nav>
-  </div>
-</header>
+<!-- ── NAV ───────────────────────────────────────────────────── -->
+<nav>
+  <a href="#home" class="nav-brand">
+    <img src="Design_Pink-removebg-preview.png" alt="Glow Makeup Studio logo" loading="eager" />
+    <span>Glow Makeup Studio</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#availability">Inquiry</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#availability" class="nav-cta">Book inquiry</a></li>
+  </ul>
+</nav>
 
-<main>
+<!-- ── PAGE CONTENT ─────────────────────────────────────────── -->
+<div class="page-inner">
+
   <!-- HERO -->
   <section id="home">
-    <div class="container hero">
-      <div class="hero-intro reveal">
-        <div class="tagline"><span class="tagline-dot"></span>Studio &amp; on-location</div>
-        <h1>Soft, luminous studio and on&#8209;location makeup.</h1>
-        <p class="hero-subline">
-          Bridal, casual, prom, bridesmaid, editorial and extreme makeup looks —
-          created in our studio or in your home, hotel or venue.
-        </p>
-        <p class="hero-note">
-          Visit Glow Makeup Studio or request us on-location. The same calm, detailed approach either way —
-          your skin, softly lit from within.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#availability">Check date &amp; inquire</a>
-          <a class="btn btn-ghost" href="#services">View services</a>
-        </div>
-        <div class="hero-availability">
-          <span class="dot-live"></span>
-          Currently accepting bookings for bridal, prom and special events.
-        </div>
-      </div>
-
-      <aside class="hero-panel reveal" aria-label="Glow Makeup Studio brand preview">
-        <div class="hero-panel-bg"></div>
-        <div class="hero-card-inner">
-          <div class="hero-logo-frame">
-            <img src="Design_Pink-removebg-preview.png" alt="Glow Makeup Studio logo" loading="eager" />
-            <div class="hero-badge-card"><span></span>Studio &amp; travel</div>
-          </div>
-          <div class="hero-floating">
-            <strong>Your glow, your location</strong>
-            <p>Studio sessions for a classic getting‑ready feel, or on‑location glam at your home, hotel or bridal suite with a full professional kit.</p>
-            <div class="pill-row">
-              <span class="pill">Studio appointments</span>
-              <span class="pill">On-location travel</span>
-              <span class="pill">Skin-first approach</span>
-            </div>
-          </div>
-        </div>
-      </aside>
+    <p class="hero-eyebrow reveal">Studio &amp; on-location · Paphos, Cyprus</p>
+    <h1 class="reveal">Soft, luminous studio and on&#8209;location makeup.</h1>
+    <p class="hero-sub reveal">
+      Bridal, casual, prom, bridesmaid, editorial and extreme makeup looks —
+      created in our studio or in your home, hotel or venue.
+    </p>
+    <p class="hero-note reveal">
+      Visit Glow Makeup Studio or request us on-location. The same calm, detailed approach either way —
+      your skin, softly lit from within.
+    </p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="#availability">Check date &amp; inquire</a>
+      <a class="btn btn-ghost"   href="#services">View services</a>
+    </div>
+    <div class="hero-avail reveal">
+      <span class="dot-live"></span>
+      Currently accepting bookings for bridal, prom and special events.
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services" data-section-dot>
-    <div class="container services-layout">
-      <!-- Left col: cards -->
-      <div>
-        <div class="section-heading reveal">
-          <div class="section-eyebrow">Services</div>
-          <h2>Glow looks, for every kind of day.</h2>
-          <p>Whether it's a wedding morning, content shoot or a night out, Glow creates soft, flattering looks that feel like you — just a little more polished and luminous.</p>
-        </div>
-
-        <div class="service-list" id="service-list">
-
-          <article class="service-card reveal" data-style="bridal" onclick="toggleCard(this)">
-            <div class="card-label">Bridal</div>
-            <div class="card-header">
-              <h3>Bridal glow</h3>
-              <div class="card-chevron">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <p class="card-short">Soft, long-wear bridal makeup for photos, vows and celebrations.</p>
-            <div class="card-body"><div class="card-body-inner">
-              <div class="card-desc">Designed to stay fresh through every moment of your day, with optional trials and touch-up planning so you feel calm and luminous from prep to party.</div>
-              <div class="card-photos">
-                <img src="style-bridal.jpg" alt="Bridal glow" loading="lazy" onerror="this.style.display='none'"/>
-                <div class="card-photo-ph">💐</div>
-                <div class="card-photo-ph">💐</div>
-              </div>
-            </div></div>
-          </article>
-
-          <article class="service-card reveal" data-style="bridesmaid" onclick="toggleCard(this)">
-            <div class="card-label">Bridesmaid</div>
-            <div class="card-header">
-              <h3>Bridesmaid glam</h3>
-              <div class="card-chevron">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <p class="card-short">Coordinated looks for your whole bridal party.</p>
-            <div class="card-body"><div class="card-body-inner">
-              <div class="card-desc">Balanced tones, flattering definition and a polished finish that photographs beautifully across every skin tone in the group.</div>
-              <div class="card-photos">
-                <img src="style-bridesmaid.jpg" alt="Bridesmaid glam" loading="lazy" onerror="this.style.display='none'"/>
-                <div class="card-photo-ph">💗</div>
-                <div class="card-photo-ph">💗</div>
-              </div>
-            </div></div>
-          </article>
-
-          <article class="service-card reveal" data-style="prom" onclick="toggleCard(this)">
-            <div class="card-label">Prom</div>
-            <div class="card-header">
-              <h3>Prom glam</h3>
-              <div class="card-chevron">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <p class="card-short">Elegant event makeup that lasts all night.</p>
-            <div class="card-body"><div class="card-body-inner">
-              <div class="card-desc">Soft-glam finish made to last through dancing, photos and the full night. Long-wear formula, camera-ready from first flash to last.</div>
-              <div class="card-photos">
-                <img src="style-prom.jpg" alt="Prom glam" loading="lazy" onerror="this.style.display='none'"/>
-                <div class="card-photo-ph">✨</div>
-                <div class="card-photo-ph">✨</div>
-              </div>
-            </div></div>
-          </article>
-
-          <article class="service-card reveal" data-style="editorial" onclick="toggleCard(this)">
-            <div class="card-label">Editorial</div>
-            <div class="card-header">
-              <h3>Editorial &amp; shoots</h3>
-              <div class="card-chevron">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <p class="card-short">Fashion-forward looks for campaigns and content.</p>
-            <div class="card-body"><div class="card-body-inner">
-              <div class="card-desc">Fashion-forward or clean-beauty looks for campaigns, creative shoots and polished content days. We collaborate with photographers and stylists to hit your vision precisely.</div>
-              <div class="card-photos">
-                <img src="style-editorial.jpg" alt="Editorial" loading="lazy" onerror="this.style.display='none'"/>
-                <div class="card-photo-ph">📸</div>
-                <div class="card-photo-ph">📸</div>
-              </div>
-            </div></div>
-          </article>
-
-          <article class="service-card reveal" data-style="extreme" onclick="toggleCard(this)">
-            <div class="card-label">Extreme makeup</div>
-            <div class="card-header">
-              <h3>Extreme makeup</h3>
-              <div class="card-chevron">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <p class="card-short">Bold, high-impact looks for statement moments.</p>
-            <div class="card-body"><div class="card-body-inner">
-              <div class="card-desc">Stronger colour, sharper detail and a more dramatic finish. For themed events, performances, avant-garde editorial or any moment that calls for more.</div>
-              <div class="card-photos">
-                <img src="style-extreme.jpg" alt="Extreme makeup" loading="lazy" onerror="this.style.display='none'"/>
-                <div class="card-photo-ph">🎭</div>
-                <div class="card-photo-ph">🎭</div>
-              </div>
-            </div></div>
-          </article>
-
-          <article class="service-card reveal" data-style="casual" onclick="toggleCard(this)">
-            <div class="card-label">Casual</div>
-            <div class="card-header">
-              <h3>Casual glam</h3>
-              <div class="card-chevron">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <p class="card-short">Light, natural makeup for everyday plans and dinners.</p>
-            <div class="card-body"><div class="card-body-inner">
-              <div class="card-desc">Look refreshed without feeling overdone. A skin-first approach for everyday plans, dinners or events — beautifully effortless.</div>
-              <div class="card-photos">
-                <img src="style-casual.jpg" alt="Casual glam" loading="lazy" onerror="this.style.display='none'"/>
-                <div class="card-photo-ph">🌿</div>
-                <div class="card-photo-ph">🌿</div>
-              </div>
-            </div></div>
-          </article>
-
-        </div>
-
-        <aside class="services-note reveal">
-          <strong>How we work</strong>
-          <p style="margin-top:8px">Every booking starts with a simple enquiry — you choose your date, service and whether you'd like a studio appointment or on-location visit.</p>
-          <p style="margin-top:8px">Include your event type, preferred ready-by time, number of faces and location. We'll reply with availability and a clear plan for the day.</p>
-        </aside>
-      </div>
-
-      <!-- Right col: gallery -->
-      <aside class="services-gallery reveal" aria-label="Example looks gallery">
-        <div class="gallery-frame" id="gallery-frame">
-          <img src="style-bridal.jpg"      alt="Bridal glow"      class="is-active" data-style="bridal"      />
-          <img src="style-bridesmaid.jpg"  alt="Bridesmaid glam"  data-style="bridesmaid"  />
-          <img src="style-prom.jpg"        alt="Prom glam"        data-style="prom"        />
-          <img src="style-editorial.jpg"   alt="Editorial shoots" data-style="editorial"   />
-          <img src="style-extreme.jpg"     alt="Extreme makeup"   data-style="extreme"     />
-          <img src="style-casual.jpg"      alt="Casual glam"      data-style="casual"      />
-        </div>
-        <div class="gallery-controls">
-          <button class="gallery-arrow" data-prev aria-label="Previous">‹</button>
-          <div class="gallery-dots">
-            <button class="gallery-dot is-active" data-style="bridal"     aria-label="Bridal"></button>
-            <button class="gallery-dot"           data-style="bridesmaid" aria-label="Bridesmaid"></button>
-            <button class="gallery-dot"           data-style="prom"       aria-label="Prom"></button>
-            <button class="gallery-dot"           data-style="editorial"  aria-label="Editorial"></button>
-            <button class="gallery-dot"           data-style="extreme"    aria-label="Extreme"></button>
-            <button class="gallery-dot"           data-style="casual"     aria-label="Casual"></button>
-          </div>
-          <button class="gallery-arrow" data-next aria-label="Next">›</button>
-        </div>
-      </aside>
+  <section id="services" class="section" data-section-dot>
+    <div class="reveal">
+      <div class="sec-label">Services</div>
+      <h2 class="sec-title">Glow looks, for every kind of day.</h2>
+      <p class="sec-intro">
+        Whether it's a wedding morning, content shoot or a night out,
+        Glow creates soft, flattering looks that feel like you — just a little more polished and luminous.
+        Tap any service to learn more.
+      </p>
     </div>
+
+    <div class="services-grid reveal">
+
+      <article class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">🌸</div>
+          <div class="card-meta">
+            <div class="card-tag">Studio &amp; on-location</div>
+            <div class="card-name">Bridal glow</div>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <p class="card-short">Soft, long-wear bridal makeup for photos, vows and celebrations.</p>
+        <div class="card-body"><div class="card-body-inner">
+          <div class="card-desc">Designed to stay fresh through every moment of your day, with optional trials and touch-up planning so you feel calm and luminous from prep to party.</div>
+          <div class="card-photos">
+            <img src="style-bridal.jpg" alt="Bridal glow" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">💐</div>
+            <div class="card-photo-ph">💐</div>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">💗</div>
+          <div class="card-meta">
+            <div class="card-tag">Group bookings welcome</div>
+            <div class="card-name">Bridesmaid glam</div>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <p class="card-short">Coordinated looks for your whole bridal party.</p>
+        <div class="card-body"><div class="card-body-inner">
+          <div class="card-desc">Balanced tones, flattering definition and a polished finish that photographs beautifully across every skin tone in the group.</div>
+          <div class="card-photos">
+            <img src="style-bridesmaid.jpg" alt="Bridesmaid glam" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">💗</div>
+            <div class="card-photo-ph">💗</div>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">✨</div>
+          <div class="card-meta">
+            <div class="card-tag">All-night wear</div>
+            <div class="card-name">Prom glam</div>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <p class="card-short">Elegant event makeup that lasts all night.</p>
+        <div class="card-body"><div class="card-body-inner">
+          <div class="card-desc">Soft-glam finish made to last through dancing, photos and the full night. Long-wear formula, camera-ready from first flash to last.</div>
+          <div class="card-photos">
+            <img src="style-prom.jpg" alt="Prom glam" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">✨</div>
+            <div class="card-photo-ph">✨</div>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">📸</div>
+          <div class="card-meta">
+            <div class="card-tag">Campaigns &amp; content</div>
+            <div class="card-name">Editorial &amp; shoots</div>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <p class="card-short">Fashion-forward looks for campaigns and content.</p>
+        <div class="card-body"><div class="card-body-inner">
+          <div class="card-desc">Fashion-forward or clean-beauty looks for campaigns, creative shoots and polished content days. We collaborate with photographers and stylists to hit your vision precisely.</div>
+          <div class="card-photos">
+            <img src="style-editorial.jpg" alt="Editorial" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">📸</div>
+            <div class="card-photo-ph">📸</div>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">🎭</div>
+          <div class="card-meta">
+            <div class="card-tag">Bold &amp; dramatic</div>
+            <div class="card-name">Extreme makeup</div>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <p class="card-short">Bold, high-impact looks for statement moments.</p>
+        <div class="card-body"><div class="card-body-inner">
+          <div class="card-desc">Stronger colour, sharper detail and a more dramatic finish. For themed events, performances, avant-garde editorial or any moment that calls for more.</div>
+          <div class="card-photos">
+            <img src="style-extreme.jpg" alt="Extreme makeup" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">🎭</div>
+            <div class="card-photo-ph">🎭</div>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="service-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-icon">🌿</div>
+          <div class="card-meta">
+            <div class="card-tag">Everyday luminosity</div>
+            <div class="card-name">Casual glam</div>
+          </div>
+          <div class="card-chevron">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <p class="card-short">Light, natural makeup for everyday plans and dinners.</p>
+        <div class="card-body"><div class="card-body-inner">
+          <div class="card-desc">Look refreshed without feeling overdone. A skin-first approach for everyday plans, dinners or events — beautifully effortless.</div>
+          <div class="card-photos">
+            <img src="style-casual.jpg" alt="Casual glam" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="card-photo-ph">🌿</div>
+            <div class="card-photo-ph">🌿</div>
+          </div>
+        </div></div>
+      </article>
+
+    </div>
+
+    <aside class="services-note reveal">
+      <strong>How we work</strong>
+      <p style="margin-top:8px">Every booking starts with a simple enquiry — you choose your date, service and whether you'd like a studio appointment or on-location visit.</p>
+      <p style="margin-top:8px">Include your event type, preferred ready-by time, number of faces and location. We'll reply with availability and a clear plan for the day.</p>
+    </aside>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="contact-section" data-section-dot>
-    <div class="container">
-      <div class="section-heading reveal" style="text-align:center">
-        <div class="section-eyebrow" style="margin:0 auto 10px">Contact</div>
-        <h2>Ready for your glow moment?</h2>
-        <p style="margin:0 auto;max-width:34rem">
-          Share your date, whether you prefer a studio session or on-location, and the occasion.
-          We'll confirm availability, timing and travel so your getting-ready time feels calm,
-          organised and a little bit luxurious.
-        </p>
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section" data-section-dot>
+    <div class="reveal">
+      <div class="sec-label">The process</div>
+      <h2 class="sec-title">How we work together.</h2>
+      <p class="sec-intro">Every booking starts with a simple inquiry — you choose your date, your look, and whether you'd like us at your door or ours.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Send your inquiry</div>
+        <p class="step-body">Fill in the form with your date, service, and preferred location. Tell us the vibe you're after.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="step-title">We confirm</div>
+        <p class="step-body">We'll reply with availability, timing, and a clear plan — studio appointment or on-location visit.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="step-title">Your glow moment</div>
+        <p class="step-body">Arrive calm, prepared, and ready. You leave luminous — every time.</p>
       </div>
     </div>
   </section>
 
   <!-- INQUIRY -->
-  <section id="availability" data-section-dot>
-    <div class="container">
-      <form class="reveal" id="inquiry-form">
-        <div class="section-eyebrow">Booking inquiry</div>
-        <h2>Tell us about your glow.</h2>
-        <p style="margin:0 0 18px;color:var(--text-muted);max-width:36rem">
-          Select any future date, choose your service and let us know the style you'd like.
-          We'll review your details and reply with availability and next steps.
-        </p>
-        <div class="form-grid">
-          <div class="field">
-            <label for="f-name">Full name</label>
-            <input id="f-name" name="name" placeholder="Your full name" required />
+  <section id="availability" class="section" data-section-dot>
+    <div class="form-wrap">
+      <div>
+        <div class="sec-label reveal">Book your date</div>
+        <h2 class="form-aside-title reveal">Tell us about <em>your glow.</em></h2>
+        <p class="form-aside-body reveal">Select any future date, choose your service and let us know the style you'd like. We'll review your details and reply with availability and next steps.</p>
+        <ul class="aside-list reveal">
+          <li>Studio appointments in Paphos</li>
+          <li>On-location — we travel to you</li>
+          <li>Group bookings for bridal parties</li>
+          <li>Bridal trials available on request</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="inquiry-form">
+          <div class="field-row">
+            <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" placeholder="Your full name" /></div>
+            <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="+357 …" /></div>
           </div>
-          <div class="field">
-            <label for="f-phone">Phone</label>
-            <input id="f-phone" name="phone" type="tel" placeholder="+357 …" required />
-          </div>
-          <div class="field">
-            <label for="f-email">Email</label>
-            <input id="f-email" name="email" type="email" placeholder="you@example.com" required />
-          </div>
-          <div class="field">
-            <label for="f-service">Makeup type</label>
-            <select id="f-service" name="service" required>
-              <option value="">Choose a service</option>
-              <option>Bridal</option>
-              <option>Bridesmaid</option>
-              <option>Prom</option>
-              <option>Casual</option>
-              <option>Editorial</option>
-              <option>Extreme makeup</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-date">Preferred date</label>
-            <input id="f-date" name="date" type="date" required />
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@example.com" /></div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-service">Makeup type</label>
+              <select id="f-service" name="service">
+                <option value="">Choose a service</option>
+                <option>Bridal</option><option>Bridesmaid</option><option>Prom</option>
+                <option>Casual</option><option>Editorial</option><option>Extreme makeup</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-date">Preferred date</label><input id="f-date" name="date" type="date" /></div>
           </div>
           <div class="field">
             <label for="f-type">Session type</label>
-            <select id="f-type" name="sessionType" required>
+            <select id="f-type" name="sessionType">
               <option value="">Studio or on-location?</option>
               <option>Studio appointment</option>
               <option>On-location (we travel to you)</option>
             </select>
           </div>
-          <div class="field">
-            <label for="f-location">Location / venue</label>
-            <input id="f-location" name="location" placeholder="Studio or home / hotel / venue" />
+          <div class="field-row">
+            <div class="field"><label for="f-location">Location / venue</label><input id="f-location" name="location" placeholder="Studio or home / hotel / venue" /></div>
+            <div class="field"><label for="f-faces">Number of faces</label><input id="f-faces" name="faces" type="number" min="1" max="30" placeholder="e.g. 3" /></div>
           </div>
           <div class="field">
-            <label for="f-faces">Number of faces</label>
-            <input id="f-faces" name="faces" type="number" min="1" max="30" placeholder="e.g. 1 bride + 2 bridesmaids" />
-          </div>
-          <div class="field full">
             <label for="f-notes">Notes</label>
             <textarea id="f-notes" name="notes" placeholder="Event type, ready-by time, inspiration, skin concerns, anything we should know."></textarea>
           </div>
+          <p class="form-note">Demo only — this button shows what will be sent once the form is connected to a Google Sheet or booking workflow.</p>
+          <button class="btn btn-primary" type="button" onclick="submitInquiry(event)" style="width:100%">Submit inquiry</button>
         </div>
-        <div class="form-footer">
-          <p id="form-message" aria-live="polite"></p>
-          <p>Demo only — connect to Google Sheets or a booking workflow to go live.</p>
-          <button class="btn btn-primary" type="submit">Submit inquiry</button>
-        </div>
-      </form>
+      </div>
     </div>
   </section>
-</main>
 
-<footer>
-  <div class="container">
-    Glow Makeup Studio &nbsp;•&nbsp; Studio and on-location makeup for bridal, casual, prom, bridesmaid, editorial and extreme makeup.
-  </div>
-</footer>
+  <!-- CONTACT -->
+  <section id="contact" class="section" data-section-dot>
+    <div class="sec-label reveal">Contact</div>
+    <h2 class="sec-title reveal">Ready for your glow moment?</h2>
+    <p class="sec-intro reveal" style="margin:0 auto 36px">
+      Share your date, whether you prefer a studio session or on-location, and the occasion.
+      We'll confirm availability, timing and travel so your getting-ready time feels calm,
+      organised and a little bit luxurious.
+    </p>
+    <div class="chip-row reveal">
+      <a href="#availability" class="chip">📅 Book an inquiry</a>
+      <a href="mailto:hello@glowmakeupcyprus.com" class="chip">✉️ Email us</a>
+      <a href="tel:+35700000000" class="chip">📞 Call the studio</a>
+      <a href="https://instagram.com/" class="chip" target="_blank" rel="noopener">📷 Instagram</a>
+    </div>
+  </section>
+
+  <footer>
+    <div style="width:min(1160px,calc(100% - 32px));margin:0 auto">
+      Glow Makeup Studio &nbsp;•&nbsp; Studio and on-location makeup for bridal, casual, prom, bridesmaid, editorial and extreme makeup.
+    </div>
+  </footer>
+
+</div><!-- /.page-inner -->
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   GALLERY
-═══════════════════════════════════════════════════════════════ */
-(() => {
-  const order   = ['bridal','bridesmaid','prom','editorial','extreme','casual'];
-  const images  = Array.from(document.querySelectorAll('#gallery-frame img'));
-  const dots    = Array.from(document.querySelectorAll('.gallery-dot'));
-  const cards   = Array.from(document.querySelectorAll('.service-card'));
-  let cur = 0, wheelLock = false, touchY = 0;
+/* ── SPLASH ─────────────────────────────────────────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('splash').classList.add('gone'), 2200);
+});
 
-  const go = idx => {
-    cur = (idx + order.length) % order.length;
-    const key = order[cur];
-    images.forEach(i => i.classList.toggle('is-active', i.dataset.style === key));
-    dots.forEach(d   => d.classList.toggle('is-active', d.dataset.style === key));
-    // mirror highlight on card (doesn't toggle expand)
-    cards.forEach(c  => c.classList.toggle('is-active', c.dataset.style === key));
-  };
+/* ── SCROLL REVEAL ──────────────────────────────────────────── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
-  document.querySelector('[data-prev]')?.addEventListener('click', () => go(cur - 1));
-  document.querySelector('[data-next]')?.addEventListener('click', () => go(cur + 1));
-  dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
-
-  const frame = document.getElementById('gallery-frame');
-  frame?.addEventListener('wheel', e => {
-    if (wheelLock || Math.abs(e.deltaY) < 10) return;
-    wheelLock = true; e.preventDefault();
-    go(cur + (e.deltaY > 0 ? 1 : -1));
-    setTimeout(() => wheelLock = false, 220);
-  }, { passive:false });
-  frame?.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive:true });
-  frame?.addEventListener('touchend', e => {
-    const d = touchY - e.changedTouches[0].clientY;
-    if (Math.abs(d) > 30) go(cur + (d > 0 ? 1 : -1));
-  }, { passive:true });
-
-  go(0);
-})();
-
-/* ═══════════════════════════════════════════════════════════════
-   SERVICE CARD EXPAND — independent of gallery highlight
-═══════════════════════════════════════════════════════════════ */
+/* ── SERVICE CARD TOGGLE ────────────────────────────────────── */
 function toggleCard(card) {
   const wasOpen = card.classList.contains('open');
   document.querySelectorAll('.service-card.open').forEach(c => c.classList.remove('open'));
   if (!wasOpen) card.classList.add('open');
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FORM
-═══════════════════════════════════════════════════════════════ */
-(() => {
-  const dateInput = document.getElementById('f-date');
-  if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+/* ── FORM DEMO ──────────────────────────────────────────────── */
+function submitInquiry(e) {
+  e.preventDefault();
+  const n = document.getElementById('f-name').value.trim();
+  alert(n ? `Thank you, ${n}! We'll be in touch shortly.` : 'Thank you! Your inquiry has been received.');
+}
 
-  const form = document.getElementById('inquiry-form');
-  const msg  = document.getElementById('form-message');
-  form?.addEventListener('submit', e => {
-    e.preventDefault();
-    const d = Object.fromEntries(new FormData(form));
-    if (!d.date) { msg.textContent = 'Please choose a preferred date first.'; msg.style.color = '#c64c77'; return; }
-    msg.style.color = '';
-    msg.textContent = `Demo — ready to send: ${d.name} · ${d.service} · ${d.date} · ${d.sessionType || 'session TBC'} · ${d.location || 'location TBC'}`;
-  });
-})();
+/* ── DATE MIN ───────────────────────────────────────────────── */
+const dateInput = document.getElementById('f-date');
+if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
 
-/* ═══════════════════════════════════════════════════════════════
-   SCROLL REVEAL
-═══════════════════════════════════════════════════════════════ */
-const revObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
-
-/* ═══════════════════════════════════════════════════════════════
-   SPLASH
-═══════════════════════════════════════════════════════════════ */
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('splash').classList.add('gone'), 2200);
-});
-
-/* ═══════════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
    BUTTERFLY ANIMATION
-   ──────────────────────────────────────────────────────────────
-   Phase 0  FLOAT  — figure-8 around hero centre, wings flapping
-   Phase 1  TWIRL  — first scroll triggers 720° spin to left edge
-   Phase 2  TRAIL  — follows scroll progress down left column,
-                     head pointing down, leaves dotted trail;
-                     scroll up erases dots
-═══════════════════════════════════════════════════════════════ */
+   ────────────────────────────────────────────────────────────
+   Phase 0  FLOAT  — gentle figure-8 in the hero, wings flap
+   Phase 1  LOOP   — on first scroll, butterfly does one smooth
+                     arc/loop curving left and downward to the
+                     left column top (no spinning, just a
+                     natural flight curve)
+   Phase 2  TRAIL  — descends left column with scroll, leaves
+                     dotted trail; scroll up erases dots
+════════════════════════════════════════════════════════════ */
 (() => {
   const svg      = document.getElementById('bf-svg');
   const bfGrp    = document.getElementById('bf');
   const trailGrp = document.getElementById('bf-trail');
 
-  const TRAIL_X  = 35;   // centre x of left column in SVG coords
-  const SMALL_R  = 3.5;
-  const LARGE_R  = 12;
+  /* ── constants ─────────────────────────────────────────── */
+  const TRAIL_X  = 26;   // x centre of left trail column
+  const TRAIL_Y0 = 70;   // y where butterfly arrives at top
+  const SMALL_R  = 2.2;
+  const LARGE_R  = 7;
   const DOT_STEP = 38;
 
-  /* Place butterfly group at (x,y) with rotation (deg).
-     Butterfly is drawn pointing UP; in trail mode we rotate 180° so head points DOWN. */
+  /* ── state ──────────────────────────────────────────────── */
+  let phase      = 0;
+  let bfX        = window.innerWidth  / 2;
+  let bfY        = window.innerHeight / 2;
+  let floatT     = 0;
+  let loopT      = 0;    // 0→1 through the arc
+  let loopStartX, loopStartY;
+  let rawProg    = 0;
+  let smoothProg = 0;
+  let lastTs     = 0;
+  let lastDotY   = -9999;
+  let flapT      = 0;
+  const dots     = [];
+  let sectionFracs = [];
+
+  /* ── place butterfly (SVG translate + rotate) ───────────── */
   function placeBf(x, y, rotDeg) {
     bfGrp.setAttribute('transform',
       `translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${rotDeg.toFixed(1)})`);
   }
 
-  let phase       = 0;
-  let bfX         = window.innerWidth / 2;
-  let bfY         = window.innerHeight * 0.42;
-  let floatT      = 0;
-  let twirl       = 0;
-  let bfRot       = 0;
-  let rawProg     = 0;
-  let smoothProg  = 0;
-  let lastTs      = 0;
-  let lastDotY    = -9999;
-  const dots      = [];  // { y, large, el, ring }
-  let sectionFracs = [];
-
-  /* Wing flap state */
-  let flapT = 0;
-
-  /* Place butterfly immediately so it's visible before first RAF */
-  placeBf(bfX, bfY, 0);
-
-  /* Compute section marker fractions */
-  function computeSections() {
-    const totalH = document.documentElement.scrollHeight - window.innerHeight;
-    sectionFracs = [];
-    document.querySelectorAll('[data-section-dot]').forEach(sec => {
-      const py = sec.getBoundingClientRect().top + window.scrollY;
-      sectionFracs.push(totalH > 0 ? py / totalH : 0);
-    });
-  }
-
-  /* Size the SVG canvas — full viewport so phase-0 float is never clipped */
-  function sizeCanvas() {
-    svg.setAttribute('width',  window.innerWidth);
-    svg.setAttribute('height', window.innerHeight);
-    svg.style.width  = window.innerWidth  + 'px';
-    svg.style.height = window.innerHeight + 'px';
-  }
-
-  /* Animate wings using SVG transform attributes (reliable cross-browser) */
+  /* ── wing flap via SVG attribute transforms ─────────────── */
   function animWings(ts) {
     flapT = ts * 0.004;
     const su = (0.55 + 0.45 * Math.abs(Math.sin(flapT))).toFixed(3);
     const sl = (0.70 + 0.30 * Math.abs(Math.sin(flapT + 0.4))).toFixed(3);
-    // Upper wings: scaleX around their inner tip (origin ~0,0 in bf-group coords)
     bfGrp.querySelector('.wlu').setAttribute('transform', `scale(${su},1)`);
     bfGrp.querySelector('.wru').setAttribute('transform', `scale(${su},1)`);
     bfGrp.querySelector('.wll').setAttribute('transform', `scale(${sl},1)`);
     bfGrp.querySelector('.wrl').setAttribute('transform', `scale(${sl},1)`);
   }
 
-  /* Add dot to trail SVG */
+  /* ── cubic bezier helper: t in [0,1] ────────────────────── */
+  function cubicBez(p0, p1, p2, p3, t) {
+    const mt = 1 - t;
+    return mt*mt*mt*p0 + 3*mt*mt*t*p1 + 3*mt*t*t*p2 + t*t*t*p3;
+  }
+
+  /* ── trail dot helpers ──────────────────────────────────── */
   const NS = 'http://www.w3.org/2000/svg';
+
   function addDot(y, large) {
     let ring = null;
     if (large) {
       ring = document.createElementNS(NS, 'circle');
       ring.setAttribute('cx', TRAIL_X);
       ring.setAttribute('cy', y);
-      ring.setAttribute('r',  LARGE_R + 9);
-      ring.setAttribute('fill',   'none');
+      ring.setAttribute('r',  LARGE_R + 5);
+      ring.setAttribute('fill', 'none');
       ring.setAttribute('stroke', '#f1c46f');
       ring.setAttribute('stroke-width', '1');
       ring.setAttribute('opacity', '0.35');
@@ -1069,11 +903,11 @@ window.addEventListener('load', () => {
     c.setAttribute('cx', TRAIL_X);
     c.setAttribute('cy', y);
     c.setAttribute('r',  large ? LARGE_R : SMALL_R);
-    c.setAttribute('fill',         large ? '#f1c46f' : 'none');
-    c.setAttribute('stroke',       large ? 'none'    : '#e3779b');
-    c.setAttribute('stroke-width', large ? '0'       : '1.4');
-    c.setAttribute('stroke-dasharray', large ? '0'   : '2 4');
-    c.setAttribute('opacity', large ? '0.75' : '0.55');
+    c.setAttribute('fill',              large ? '#f1c46f' : 'none');
+    c.setAttribute('stroke',            large ? 'none'    : '#e3779b');
+    c.setAttribute('stroke-width',      large ? '0'       : '1.3');
+    c.setAttribute('stroke-dasharray',  large ? '0'       : '2 4');
+    c.setAttribute('opacity',           large ? '0.75'    : '0.55');
     trailGrp.appendChild(c);
     dots.push({ y, large, el: c, ring });
   }
@@ -1091,77 +925,125 @@ window.addEventListener('load', () => {
 
   function maybeAddDot(y) {
     if (y <= lastDotY) return;
-    // Section landmark?
     for (const sf of sectionFracs) {
       const sy = sf * window.innerHeight;
       if (Math.abs(y - sy) < 16 && !dots.find(d => d.large && Math.abs(d.y - sy) < 24)) {
-        addDot(sy, true);
-        lastDotY = Math.max(lastDotY, sy);
-        return;
+        addDot(sy, true); lastDotY = Math.max(lastDotY, sy); return;
       }
     }
-    if (y - lastDotY >= DOT_STEP) {
-      addDot(y, false);
-      lastDotY = y;
-    }
+    if (y - lastDotY >= DOT_STEP) { addDot(y, false); lastDotY = y; }
   }
 
-  /* Scroll listener */
-  window.addEventListener('scroll', () => {
+  /* ── sections ───────────────────────────────────────────── */
+  function computeSections() {
     const totalH = document.documentElement.scrollHeight - window.innerHeight;
-    rawProg = totalH > 0 ? Math.min(1, window.scrollY / totalH) : 0;
-    if (phase === 0) { phase = 1; twirl = 0; bfRot = 0; }
-  }, { passive:true });
+    sectionFracs = [];
+    document.querySelectorAll('[data-section-dot]').forEach(sec => {
+      const py = sec.getBoundingClientRect().top + window.scrollY;
+      sectionFracs.push(totalH > 0 ? py / totalH : 0);
+    });
+  }
 
+  /* ── resize ─────────────────────────────────────────────── */
+  function sizeCanvas() {
+    svg.setAttribute('width',  window.innerWidth);
+    svg.setAttribute('height', window.innerHeight);
+    svg.style.width  = window.innerWidth  + 'px';
+    svg.style.height = window.innerHeight + 'px';
+  }
   window.addEventListener('resize', () => {
     sizeCanvas(); computeSections();
     trailGrp.innerHTML = ''; dots.length = 0; lastDotY = -9999;
   }, { passive:true });
-
   sizeCanvas();
   computeSections();
 
-  /* RAF loop */
+  /* ── scroll ─────────────────────────────────────────────── */
+  window.addEventListener('scroll', () => {
+    const totalH = document.documentElement.scrollHeight - window.innerHeight;
+    rawProg = totalH > 0 ? Math.min(1, window.scrollY / totalH) : 0;
+    if (phase === 0) {
+      // Capture current position as loop start
+      loopStartX = bfX;
+      loopStartY = bfY;
+      loopT = 0;
+      phase = 1;
+    }
+  }, { passive: true });
+
+  /* ── initial placement ──────────────────────────────────── */
+  placeBf(bfX, bfY, 0);
+
+  /* ── RAF loop ───────────────────────────────────────────── */
   function tick(ts) {
     const dt = Math.min(ts - lastTs, 50);
     lastTs = ts;
     animWings(ts);
 
     if (phase === 0) {
-      /* ── FLOAT: figure-8 in hero ── */
+      /* FLOAT: figure-8 in hero */
       floatT += dt * 0.00065;
-      const cx  = window.innerWidth / 2;
+      const cx  = window.innerWidth  / 2;
       const cy  = window.innerHeight / 2 - 30;
       const amp = Math.min(window.innerWidth * 0.11, 80);
-      const tx  = cx + Math.sin(floatT) * amp;
+      const tx  = cx + Math.sin(floatT)     * amp;
       const ty  = cy + Math.sin(floatT * 2) * (amp * 0.45);
       bfX += (tx - bfX) * 0.055;
       bfY += (ty - bfY) * 0.055;
-      const rock = Math.sin(floatT * 1.7) * 14;
-      placeBf(bfX, bfY, rock);
+      /* tilt gently in direction of travel */
+      const tilt = Math.sin(floatT * 1.7) * 14;
+      placeBf(bfX, bfY, tilt);
 
     } else if (phase === 1) {
-      /* ── TWIRL: spin to left column ── */
-      const spd = dt * 0.65;
-      twirl  += spd;
-      bfRot  += spd;
-      const destX = TRAIL_X, destY = 60;
-      bfX += (destX - bfX) * 0.028;
-      bfY += (destY - bfY) * 0.028;
-      /* 180 base so head points down when trail begins */
-      placeBf(bfX, bfY, 180 + bfRot);
-      if (twirl >= 720 && Math.abs(bfX - destX) < 28) { phase = 2; bfRot = 0; }
+      /*
+        LOOP: one smooth Bézier arc from current hero position
+        curving left and down to (TRAIL_X, TRAIL_Y0).
+
+        Control points create a natural looping flight curve —
+        butterfly sweeps left, dips slightly, then arrives at
+        the left column pointing downward. No spinning.
+
+        Duration ~1.4 s total (loopT advances ~0.7/s).
+      */
+      loopT += dt * 0.0007;
+      if (loopT >= 1) { loopT = 1; }
+
+      /* Bézier control points (in screen coords) */
+      const ex  = TRAIL_X;
+      const ey  = TRAIL_Y0;
+      /* CP1: sweep up-left from start */
+      const cp1x = loopStartX - (loopStartX - ex) * 0.3;
+      const cp1y = loopStartY - 80;
+      /* CP2: come in from left, slightly above destination */
+      const cp2x = ex - 60;
+      const cp2y = ey - 40;
+
+      const eased = loopT < 0.5
+        ? 2 * loopT * loopT
+        : 1 - Math.pow(-2 * loopT + 2, 2) / 2;  // ease-in-out
+
+      bfX = cubicBez(loopStartX, cp1x, cp2x, ex, eased);
+      bfY = cubicBez(loopStartY, cp1y, cp2y, ey, eased);
+
+      /* Derive heading from tangent of bezier for natural tilt */
+      const dt2 = 0.01;
+      const nx = cubicBez(loopStartX, cp1x, cp2x, ex, Math.min(eased + dt2, 1));
+      const ny = cubicBez(loopStartY, cp1y, cp2y, ey, Math.min(eased + dt2, 1));
+      const angle = Math.atan2(ny - bfY, nx - bfX) * (180 / Math.PI) + 90;
+      placeBf(bfX, bfY, angle);
+
+      if (loopT >= 1) { phase = 2; smoothProg = rawProg; }
 
     } else {
-      /* ── TRAIL ── */
+      /* TRAIL: follow scroll progress down left column */
       const going = rawProg >= smoothProg;
       smoothProg += (rawProg - smoothProg) * 0.038;
-      const vpH   = window.innerHeight;
-      const trailY = smoothProg * (vpH - 80) + 40;
+      const trailY = smoothProg * (window.innerHeight - 80) + 40;
       bfX += (TRAIL_X - bfX) * 0.14;
       bfY += (trailY  - bfY) * 0.14;
-      const sway = Math.sin(ts * 0.0009) * 5;
-      placeBf(bfX + sway, bfY, 180 + sway * 1.3);
+      const sway  = Math.sin(ts * 0.0009) * 4;
+      /* 180° so head points down, small sway adds life */
+      placeBf(bfX + sway, bfY, 180 + sway * 1.2);
       if (going) { maybeAddDot(bfY); }
       else       { eraseDots(bfY - 8); }
     }
